@@ -84,6 +84,7 @@ export default function Map() {
       zoom={zoom}
       maxZoom={zoom}
       minZoom={zoom}
+      dragging={false}
     >
       <ImageOverlay
         url="/assets/image-assets/greengrass.jpg"
