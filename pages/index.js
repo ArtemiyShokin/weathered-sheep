@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { StyledHeading } from "@/components/Map/Global/Global.styled";
 
 export default function HomePage() {
   const Map = dynamic(() => import("@/components/Map"), {
@@ -8,7 +9,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>Welcome to the meadow</h1>
+      <StyledHeading>Welcome to the meadow</StyledHeading>
       <Map />
     </div>
   );

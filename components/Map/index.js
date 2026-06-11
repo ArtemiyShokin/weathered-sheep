@@ -7,13 +7,9 @@ import MapEventsHandler from "@/utils/MapEventsHandler";
 import { TileLayer, ImageOverlay } from "react-leaflet";
 import animateTo from "@/utils/animateSheep";
 import randomPositionInBounds from "@/utils/randomPosition";
+import { bounds } from "@/utils/MapData";
 
 const zoom = 4;
-
-const bounds = [
-  [64.8, -12],
-  [28.5, 72],
-];
 
 const animationDuration = 8000;
 
