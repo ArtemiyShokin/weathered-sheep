@@ -5,7 +5,7 @@ import { StyledMapContainer } from "./Map.styled";
 import { useState, useRef, useEffect } from "react";
 import MapEventsHandler from "@/utils/MapEventsHandler";
 import { TileLayer, ImageOverlay } from "react-leaflet";
-import animateTo from "@/utils/animateSheep";
+import animateSheep from "@/utils/animateSheep";
 import randomPositionInBounds from "@/utils/randomPosition";
 import { bounds } from "@/utils/MapData";
 
@@ -61,7 +61,7 @@ export default function Map() {
     function wander() {
       sheepRef.current.forEach((oneSheep) => {
         const [lat, lng] = randomPositionInBounds();
-        animateTo(
+        animateSheep(
           oneSheep.id,
           sheepRef,
           animationRefs,

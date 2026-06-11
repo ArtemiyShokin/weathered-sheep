@@ -1,4 +1,4 @@
-export default function animateTo(
+export default function animateSheep(
   sheepId,
   sheepRef,
   animationRefs,
