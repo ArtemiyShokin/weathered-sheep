@@ -85,6 +85,7 @@ export default function Map() {
       maxZoom={zoom}
       minZoom={zoom}
       dragging={false}
+      zoomControl={false}
     >
       <ImageOverlay
         url="/assets/image-assets/greengrass.jpg"
@@ -97,7 +98,6 @@ export default function Map() {
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       <MapEventsHandler handleMapClick={handleMapClick} />
-      <Rectangle bounds={bounds} pathOptions={{ color: "green" }} />
     </StyledMapContainer>
   );
 }
