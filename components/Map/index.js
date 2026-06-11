@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import MapEventsHandler from "@/utils/MapEventsHandler";
 import { TileLayer, ImageOverlay } from "react-leaflet";
 import animateTo from "@/utils/animateSheep";
+import randomPositionInBounds from "@/utils/randomPosition";
 
 const zoom = 4;
 
@@ -15,14 +16,6 @@ const bounds = [
 ];
 
 const animationDuration = 8000;
-
-function randomPositionInBounds() {
-  const lat = bounds[1][0] + Math.random() * (bounds[0][0] - bounds[1][0]);
-
-  const lng = bounds[0][1] + Math.random() * (bounds[1][1] - bounds[0][1]);
-
-  return [lat, lng];
-}
 
 export default function Map() {
   const [sheep, setSheep] = useState([
@@ -96,7 +89,11 @@ export default function Map() {
       maxZoom={zoom}
       minZoom={zoom}
     >
-      <ImageOverlay url="/assets/greengrass.jpg" bounds={bounds} opacity={50} />
+      <ImageOverlay
+        url="/assets/image-assets/greengrass.jpg"
+        bounds={bounds}
+        opacity={0.35}
+      />
       {sheep.map((sheep) => (
         <Marker key={sheep.id} position={sheep.position} icon={sheepMarker} />
       ))}

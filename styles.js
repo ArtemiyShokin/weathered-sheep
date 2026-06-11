@@ -230,6 +230,9 @@ q::after {
 /* END OF CSS RESET */
 
 :root {
-  background-color: green;
+  background-color: var(--background);
+
+  /* COLORS */
+  --background: hsl(103, 16%, 47%)
 }
 `;
