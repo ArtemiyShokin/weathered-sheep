@@ -1,7 +1,15 @@
+import dynamic from "next/dynamic";
+import { StyledHeading } from "@/components/Global/Global.styled";
+const Map = dynamic(() => import("@/components/Map"), {
+  ssr: false,
+  loading: () => <p>A map is loading</p>,
+});
+
 export default function HomePage() {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <StyledHeading>Welcome to the meadow</StyledHeading>
+      <Map />
     </div>
   );
 }
