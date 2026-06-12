@@ -9,10 +9,9 @@ import MapEventsHandler from "@/utils/MapEventsHandler";
 import animateSheep from "@/utils/animateSheep";
 import randomPositionInBounds from "@/utils/randomPosition";
 import { bounds } from "@/utils/MapData";
+import randomDuration from "@/utils/randomDuration";
 
 const zoom = 4;
-
-const animationDuration = 8000;
 
 export default function Map() {
   const [sheep, setSheep] = useState([
@@ -62,6 +61,8 @@ export default function Map() {
     function wander() {
       sheepRef.current.forEach((oneSheep) => {
         const [latitude, longitude] = randomPositionInBounds();
+        const animationDuration = randomDuration(8000, 15000);
+
         animateSheep(
           oneSheep.id,
           sheepRef,
@@ -75,7 +76,7 @@ export default function Map() {
     }
 
     wander();
-    const interval = setInterval(wander, animationDuration + 100);
+    const interval = setInterval(wander, 15000);
     return () => clearInterval(interval);
   }, []);
 
