@@ -3,8 +3,8 @@ export default function animateSheep(
   sheepRef,
   animationRefs,
   setSheep,
-  targetLat,
-  targetLng,
+  targetLatitude,
+  targetLongitude,
   animationDuration
 ) {
   const currentSheep = sheepRef.current.find((sheep) => sheep.id === sheepId);
@@ -15,17 +15,22 @@ export default function animateSheep(
     cancelAnimationFrame(animationRefs.current[sheepId]);
   }
 
-  const startLat = currentSheep.position[0];
-  const startLng = currentSheep.position[1];
+  const startLatitude = currentSheep.position[0];
+  const startLongitude = currentSheep.position[1];
 
   const startTime = performance.now();
 
   function step(now) {
-    const t = Math.min((now - startTime) / animationDuration, 1);
+    const animationProgress = Math.min(
+      (now - startTime) / animationDuration,
+      1
+    );
 
-    const newLat = startLat + (targetLat - startLat) * t;
+    const newLat =
+      startLatitude + (targetLatitude - startLatitude) * animationProgress;
 
-    const newLng = startLng + (targetLng - startLng) * t;
+    const newLng =
+      startLongitude + (targetLongitude - startLongitude) * animationProgress;
 
     setSheep((prevSheep) =>
       prevSheep.map((sheep) =>
@@ -38,7 +43,7 @@ export default function animateSheep(
       )
     );
 
-    if (t < 1) {
+    if (animationProgress < 1) {
       animationRefs.current[sheepId] = requestAnimationFrame(step);
     }
   }

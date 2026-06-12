@@ -1,10 +1,11 @@
+import { useState, useRef, useEffect } from "react";
+
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { Marker, Rectangle } from "react-leaflet";
+import { Marker, TileLayer, ImageOverlay } from "react-leaflet";
+
 import { StyledMapContainer } from "./Map.styled";
-import { useState, useRef, useEffect } from "react";
 import MapEventsHandler from "@/utils/MapEventsHandler";
-import { TileLayer, ImageOverlay } from "react-leaflet";
 import animateSheep from "@/utils/animateSheep";
 import randomPositionInBounds from "@/utils/randomPosition";
 import { bounds } from "@/utils/MapData";
@@ -52,22 +53,22 @@ export default function Map() {
   }, []);
 
   function handleMapClick(event) {
-    const { lat, lng } = event.latlng;
-    alert(`latitude: ${lat} longitude: ${lng}`);
+    const { lat: latitude, lng: longitude } = event.latlng;
+    alert(`latitude: ${latitude} longitude: ${longitude}`);
   }
 
   // make the sheep move
   useEffect(() => {
     function wander() {
       sheepRef.current.forEach((oneSheep) => {
-        const [lat, lng] = randomPositionInBounds();
+        const [latitude, longitude] = randomPositionInBounds();
         animateSheep(
           oneSheep.id,
           sheepRef,
           animationRefs,
           setSheep,
-          lat,
-          lng,
+          latitude,
+          longitude,
           animationDuration
         );
       });
@@ -92,8 +93,12 @@ export default function Map() {
         bounds={bounds}
         opacity={0.35}
       />
-      {sheep.map((sheep) => (
-        <Marker key={sheep.id} position={sheep.position} icon={sheepMarker} />
+      {sheep.map((oneSheep) => (
+        <Marker
+          key={oneSheep.id}
+          position={oneSheep.position}
+          icon={sheepMarker}
+        />
       ))}
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
