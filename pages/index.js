@@ -3,20 +3,20 @@ import { StyledHeading } from "@/components/Global/Global.styled";
 import InfoBox from "@/components/InfoBox";
 import useSWR from "swr";
 
-// const fetcher = async (resource, init) => {
-//   const result = await fetch(resource, init);
+const fetcher = async (resource, init) => {
+  const result = await fetch(resource, init);
 
-//   if (!result.ok) {
-//     const error = new Error(
-//       "Bleeek! An eeerror occured while connecting to the weather data."
-//     );
-//     error.info = await result.json();
-//     error.status = result.status;
-//     throw error;
-//   }
+  if (!result.ok) {
+    const error = new Error(
+      "Meh! An eeerror occured while connecting to the weather data."
+    );
+    error.info = await result.json();
+    error.status = result.status;
+    throw error;
+  }
 
-//   return result.json();
-// };
+  return result.json();
+};
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,

@@ -32,14 +32,35 @@ export default function animateSheep(
     const newLng =
       startLongitude + (targetLongitude - startLongitude) * animationProgress;
 
+    if (animationProgress >= 1) {
+      async function startFetching(latitude, longitude) {
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`
+        );
+        const weather = await response.json();
+        console.dir(weather);
+        setSheep((prevSheep) =>
+          prevSheep.map((oneSheep) =>
+            oneSheep.id === sheepId
+              ? {
+                  ...oneSheep,
+                  temperature: weather.current.temperature_2m,
+                }
+              : oneSheep
+          )
+        );
+      }
+      startFetching(targetLatitude, targetLongitude);
+    }
+
     setSheep((prevSheep) =>
-      prevSheep.map((sheep) =>
-        sheep.id === sheepId
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
           ? {
-              ...sheep,
+              ...oneSheep,
               position: [newLat, newLng],
             }
-          : sheep
+          : oneSheep
       )
     );
 

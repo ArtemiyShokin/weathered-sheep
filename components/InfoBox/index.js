@@ -10,6 +10,7 @@ export default function InfoBox({ sheep }) {
             <p> {oneSheep.position[1]} </p>
             <p> {oneSheep.weatherLocation[0]}</p>
             <p> {oneSheep.weatherLocation[1]}</p>
+            <p> {oneSheep.temperature}</p>
           </li>
         ))}
       </ul>

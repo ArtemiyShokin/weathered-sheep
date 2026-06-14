@@ -47,6 +47,7 @@ export default function Map({ sheep, setSheep }) {
       sheepRef.current.forEach((oneSheep) => {
         const [latitude, longitude] = randomPositionInBounds();
         const animationDuration = randomDuration(8000, 15000);
+
         setSheep((prevSheep) =>
           prevSheep.map((aSheep) =>
             aSheep.id === oneSheep.id
