@@ -13,22 +13,7 @@ import randomDuration from "@/utils/randomDuration";
 
 const zoom = 4;
 
-export default function Map() {
-  const [sheep, setSheep] = useState([
-    {
-      id: 1,
-      position: [50, 30],
-    },
-    {
-      id: 2,
-      position: [40, 20],
-    },
-    {
-      id: 3,
-      position: [33, 40],
-    },
-  ]);
-
+export default function Map({ sheep, setSheep }) {
   const sheepRef = useRef(sheep);
   const animationRefs = useRef({});
 
@@ -62,6 +47,13 @@ export default function Map() {
       sheepRef.current.forEach((oneSheep) => {
         const [latitude, longitude] = randomPositionInBounds();
         const animationDuration = randomDuration(8000, 15000);
+        setSheep((prevSheep) =>
+          prevSheep.map((aSheep) =>
+            aSheep.id === oneSheep.id
+              ? { ...aSheep, weatherLocation: [latitude, longitude] }
+              : aSheep
+          )
+        );
 
         animateSheep(
           oneSheep.id,
