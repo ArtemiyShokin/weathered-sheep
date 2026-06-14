@@ -38,7 +38,7 @@ export default function animateSheep(
           `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`
         );
         const weather = await response.json();
-        console.dir(weather);
+        if (!weather) return console.log("Ooops, something went wrong!");
         setSheep((prevSheep) =>
           prevSheep.map((oneSheep) =>
             oneSheep.id === sheepId
