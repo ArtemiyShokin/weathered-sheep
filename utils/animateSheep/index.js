@@ -35,7 +35,7 @@ export default function animateSheep(
     if (animationProgress >= 1) {
       async function startFetching(latitude, longitude) {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`
+          `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`
         );
         const weather = await response.json();
         console.dir(weather);
