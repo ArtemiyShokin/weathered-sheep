@@ -13,7 +13,7 @@ import randomDuration from "@/utils/randomDuration";
 
 const zoom = 4;
 
-export default function Map({ sheep, setSheep }) {
+export default function Map({ sheep, setSheep, sheepMovementActivated }) {
   const sheepRef = useRef(sheep);
   const animationRefs = useRef({});
 
@@ -42,7 +42,9 @@ export default function Map({ sheep, setSheep }) {
   }
 
   // make the sheep move
+
   useEffect(() => {
+    if (!sheepMovementActivated) return;
     function wander() {
       sheepRef.current.forEach((oneSheep) => {
         const [latitude, longitude] = randomPositionInBounds();
@@ -71,7 +73,7 @@ export default function Map({ sheep, setSheep }) {
     wander();
     const interval = setInterval(wander, 15000);
     return () => clearInterval(interval);
-  }, []);
+  }, [sheepMovementActivated]);
 
   return (
     <StyledMapContainer

@@ -39,12 +39,15 @@ export default function animateSheep(
         );
         const weather = await response.json();
         if (!weather) return console.log("Ooops, something went wrong!");
+        console.dir(weather);
         setSheep((prevSheep) =>
           prevSheep.map((oneSheep) =>
             oneSheep.id === sheepId
               ? {
                   ...oneSheep,
                   temperature: weather.current.temperature_2m,
+                  wind: weather.current.wind_speed_10m,
+                  humidity: weather.current.relative_humidity_2m,
                 }
               : oneSheep
           )

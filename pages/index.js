@@ -1,22 +1,11 @@
 import dynamic from "next/dynamic";
-import { StyledHeading } from "@/components/Global/Global.styled";
+import {
+  StyledHeading,
+  StyledHomePageContainer,
+  StyledButton,
+} from "@/components/Global/Global.styled";
 import InfoBox from "@/components/InfoBox";
-import useSWR from "swr";
-
-const fetcher = async (resource, init) => {
-  const result = await fetch(resource, init);
-
-  if (!result.ok) {
-    const error = new Error(
-      "Meh! An eeerror occured while connecting to the weather data."
-    );
-    error.info = await result.json();
-    error.status = result.status;
-    throw error;
-  }
-
-  return result.json();
-};
+import { useState } from "react";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -24,16 +13,25 @@ const Map = dynamic(() => import("@/components/Map"), {
 });
 
 export default function HomePage({ sheep, setSheep }) {
-  // const { weather, error, isLoading } = useSWR(
-  //   "/api/open-meteo?latitude=${latitude}&longitude=${longitude}",
-  //   fetcher
-  // );
+  const [sheepMovementActivated, setSheepMovementActivated] = useState(true);
 
   return (
     <div>
       <StyledHeading>Welcome to the meadow</StyledHeading>
-      <Map sheep={sheep} setSheep={setSheep} />
-      <InfoBox sheep={sheep} setSheep={setSheep} />
+
+      <StyledHomePageContainer>
+        <Map
+          sheep={sheep}
+          setSheep={setSheep}
+          sheepMovementActivated={sheepMovementActivated}
+        />
+        <InfoBox sheep={sheep} setSheep={setSheep} />
+      </StyledHomePageContainer>
+      <StyledButton
+        onClick={() => setSheepMovementActivated(!sheepMovementActivated)}
+      >
+        {sheepMovementActivated ? "Turn off movement" : "Turn on movement"}
+      </StyledButton>
     </div>
   );
 }
