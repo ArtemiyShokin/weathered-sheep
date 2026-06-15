@@ -19,9 +19,6 @@ export const StyledButton = styled.button`
   background-color: var(--huemint2);
   color: var(--huemint1);
   border-radius: 2px;
-  border-style: solid;
-  border-color: var(--huemint4);
-  border-width: 1px;
   padding: 8px 16px;
   margin-left: 16px;
   font-size: 12px;
