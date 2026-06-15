@@ -6,7 +6,7 @@ export default function InfoBox({ sheep }) {
       <ul>
         {sheep.map((oneSheep) => (
           <li key={oneSheep.id}>
-            <h1>{oneSheep.name}</h1>
+            <h2>{oneSheep.name}</h2>
             <p>lat: {oneSheep.position[0]}</p>
             <p>lng: {oneSheep.position[1]} </p>
             <p>temperature: {oneSheep.temperature} C</p>
