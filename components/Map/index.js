@@ -97,6 +97,7 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
             key={oneSheep.id}
             position={oneSheep.position}
             icon={sheepMarker}
+            draggable
           />
         ))}
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
