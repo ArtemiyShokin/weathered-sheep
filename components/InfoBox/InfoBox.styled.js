@@ -5,6 +5,7 @@ export const InfoBoxContainer = styled.div`
   min-width: 400px;
 
   background-color: var(--accent);
+  border-radius: 2px;
   border-style: solid;
   border-width: 1px;
   border-color: var(--huemint4);
