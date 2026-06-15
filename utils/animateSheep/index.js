@@ -32,14 +32,40 @@ export default function animateSheep(
     const newLng =
       startLongitude + (targetLongitude - startLongitude) * animationProgress;
 
+    if (animationProgress >= 1) {
+      async function startFetching(latitude, longitude) {
+  const response = await fetch(
+    `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`
+  );
+  if (!response.ok) {
+    console.error(`Weather fetch failed: ${response.status}`);
+    return;
+  }
+  const weather = await response.json();
+  setSheep((prevSheep) =>
+    prevSheep.map((oneSheep) =>
+      oneSheep.id === sheepId
+        ? {
+            ...oneSheep,
+            temperature: weather.current.temperature_2m,
+            wind: weather.current.wind_speed_10m,
+            humidity: weather.current.relative_humidity_2m,
+          }
+        : oneSheep
+    )
+  );
+}
+      startFetching(targetLatitude, targetLongitude);
+    }
+
     setSheep((prevSheep) =>
-      prevSheep.map((sheep) =>
-        sheep.id === sheepId
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
           ? {
-              ...sheep,
+              ...oneSheep,
               position: [newLat, newLng],
             }
-          : sheep
+          : oneSheep
       )
     );
 
