@@ -5,6 +5,7 @@ import L from "leaflet";
 import { Marker, TileLayer, ImageOverlay } from "react-leaflet";
 
 import { StyledMapContainer } from "./Map.styled";
+import { InfoBoxContainer, StyledMenuBar } from "../InfoBox/InfoBox.styled";
 import MapEventsHandler from "@/utils/MapEventsHandler";
 import animateSheep from "@/utils/animateSheep";
 import randomPositionInBounds from "@/utils/randomPosition";
@@ -76,29 +77,32 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
   }, [sheepMovementActivated]);
 
   return (
-    <StyledMapContainer
-      center={[50, 30]}
-      zoom={zoom}
-      maxZoom={zoom}
-      minZoom={zoom}
-      dragging={false}
-      zoomControl={false}
-    >
-      <ImageOverlay
-        url="/assets/image-assets/greengrass.jpg"
-        bounds={bounds}
-        opacity={0.35}
-      />
-      {sheep.map((oneSheep) => (
-        <Marker
-          key={oneSheep.id}
-          position={oneSheep.position}
-          icon={sheepMarker}
+    <InfoBoxContainer>
+      <StyledMenuBar />
+      <StyledMapContainer
+        center={[50, 30]}
+        zoom={zoom}
+        maxZoom={zoom}
+        minZoom={zoom}
+        dragging={false}
+        zoomControl={false}
+      >
+        <ImageOverlay
+          url="/assets/image-assets/greengrass.jpg"
+          bounds={bounds}
+          opacity={0.48}
         />
-      ))}
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {sheep.map((oneSheep) => (
+          <Marker
+            key={oneSheep.id}
+            position={oneSheep.position}
+            icon={sheepMarker}
+          />
+        ))}
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      <MapEventsHandler handleMapClick={handleMapClick} />
-    </StyledMapContainer>
+        <MapEventsHandler handleMapClick={handleMapClick} />
+      </StyledMapContainer>
+    </InfoBoxContainer>
   );
 }

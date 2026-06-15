@@ -17,7 +17,7 @@ export default function HomePage({ sheep, setSheep }) {
 
   return (
     <div>
-      <StyledHeading>Welcome to the meadow</StyledHeading>
+      <StyledHeading>Welcome to the meadow_</StyledHeading>
 
       <StyledHomePageContainer>
         <Map

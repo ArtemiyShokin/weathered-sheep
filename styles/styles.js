@@ -14,12 +14,18 @@ const GlobalStyle = createGlobalStyle`
 
 :root {
   background-color: var(--support);
-  color: var(--hero);
+  color: var(--huemint2);
 
   /* COLORS */
   --hero: #90EE90;
-  --accent: #004ddb;
-  --support: #505050;
+  --accent: #404744;
+  --support: #0d0f0e;
+
+  --huemint1: #0d0f0e;
+  --huemint2: #66cb1d;
+  --huemint3: #009d01;
+  --huemint4: #e95947;
+
 
   --text-font-family: ${archivo.style.fontFamily};
   --roboto-font: ${roboto.style.fontFamily}
