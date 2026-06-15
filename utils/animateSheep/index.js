@@ -57,7 +57,7 @@ export default function animateSheep(
         );
       }
       startFetching(targetLatitude, targetLongitude);
-      sheepSound();
+      sheepSound(oneSheep.humidity, oneSheep.wind);
     }
 
     setSheep((prevSheep) =>
