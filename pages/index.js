@@ -25,7 +25,7 @@ export default function HomePage({ sheep, setSheep }) {
           setSheep={setSheep}
           sheepMovementActivated={sheepMovementActivated}
         />
-        <InfoBox sheep={sheep} setSheep={setSheep} />
+        <InfoBox sheep={sheep} />
       </StyledHomePageContainer>
       <StyledButton
         onClick={() => setSheepMovementActivated(!sheepMovementActivated)}
