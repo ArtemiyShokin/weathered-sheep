@@ -5,9 +5,12 @@ export default async function handler(request, response) {
     const apiResponse = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`
     );
-
+    if (!apiResponse.ok) {
+      return response.status(apiResponse.status).json({
+        error: "Upstream weather API returned an error",
+      });
+    }
     const weather = await apiResponse.json();
-
     response.status(200).json(weather);
   } catch (error) {
     response.status(500).json({
