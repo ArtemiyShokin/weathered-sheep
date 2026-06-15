@@ -6,6 +6,7 @@ import {
 } from "@/components/Global/Global.styled";
 import InfoBox from "@/components/InfoBox";
 import { useState } from "react";
+import * as Tone from "tone";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -13,7 +14,7 @@ const Map = dynamic(() => import("@/components/Map"), {
 });
 
 export default function HomePage({ sheep, setSheep }) {
-  const [sheepMovementActivated, setSheepMovementActivated] = useState(true);
+  const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
 
   return (
     <div>
@@ -28,7 +29,13 @@ export default function HomePage({ sheep, setSheep }) {
         <InfoBox sheep={sheep} />
       </StyledHomePageContainer>
       <StyledButton
-        onClick={() => setSheepMovementActivated(!sheepMovementActivated)}
+        onClick={() => {
+          if (Tone.context.state !== "running") {
+            Tone.start();
+          }
+          setSheepMovementActivated(!sheepMovementActivated);
+          console.log(Tone.context.state);
+        }}
       >
         {sheepMovementActivated ? "Turn off movement" : "Turn on movement"}
       </StyledButton>
