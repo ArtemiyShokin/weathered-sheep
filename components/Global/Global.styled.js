@@ -25,6 +25,7 @@ export const StyledButton = styled.button`
   font-family: var(--roboto-font);
   letter-spacing: 0.1px;
   word-spacing: -2px;
+  width: 160px;
 
   &:active {
     background-color: var(--huemint4);

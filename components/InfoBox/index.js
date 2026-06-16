@@ -9,8 +9,8 @@ export default function InfoBox({ sheep }) {
             <h2>{oneSheep.name}</h2>
             <p>lat: {oneSheep.position[0]}</p>
             <p>lng: {oneSheep.position[1]} </p>
-            <p>temperature: {oneSheep.temperature} C</p>
-            <p>wind-speed: {oneSheep.wind} km/h</p>
+            <p>temperature: {oneSheep.temperature}C</p>
+            <p>wind-speed: {oneSheep.wind}km/h</p>
             <p>humidity: {oneSheep.humidity}%</p>
           </li>
         ))}

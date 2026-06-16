@@ -8,10 +8,9 @@ import { StyledMapContainer } from "./Map.styled";
 import { InfoBoxContainer, StyledMenuBar } from "../InfoBox/InfoBox.styled";
 import MapEventsHandler from "@/utils/MapEventsHandler";
 import animateSheep from "@/utils/animateSheep";
-import randomPositionInBounds from "@/utils/randomPosition";
+import { randomPositionInBounds } from "@/utils/calculationFunctions";
 import { bounds } from "@/utils/MapData";
-import randomDuration from "@/utils/randomDuration";
-
+import { randomDuration } from "@/utils/calculationFunctions";
 const zoom = 4;
 
 export default function Map({ sheep, setSheep, sheepMovementActivated }) {
@@ -49,7 +48,7 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
     function wander() {
       sheepRef.current.forEach((oneSheep) => {
         const [latitude, longitude] = randomPositionInBounds();
-        const animationDuration = randomDuration(8000, 15000);
+        const animationDuration = randomDuration(1000, 7999);
 
         setSheep((prevSheep) =>
           prevSheep.map((aSheep) =>
@@ -72,7 +71,7 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
     }
 
     wander();
-    const interval = setInterval(wander, 15000);
+    const interval = setInterval(wander, 8000);
     return () => clearInterval(interval);
   }, [sheepMovementActivated]);
 
@@ -97,6 +96,7 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
             key={oneSheep.id}
             position={oneSheep.position}
             icon={sheepMarker}
+            draggable
           />
         ))}
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

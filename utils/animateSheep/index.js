@@ -1,3 +1,4 @@
+import sheepSound from "../sheepSound";
 export default function animateSheep(
   sheepId,
   sheepRef,
@@ -34,27 +35,32 @@ export default function animateSheep(
 
     if (animationProgress >= 1) {
       async function startFetching(latitude, longitude) {
-  const response = await fetch(
-    `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`
-  );
-  if (!response.ok) {
-    console.error(`Weather fetch failed: ${response.status}`);
-    return;
-  }
-  const weather = await response.json();
-  setSheep((prevSheep) =>
-    prevSheep.map((oneSheep) =>
-      oneSheep.id === sheepId
-        ? {
-            ...oneSheep,
-            temperature: weather.current.temperature_2m,
-            wind: weather.current.wind_speed_10m,
-            humidity: weather.current.relative_humidity_2m,
-          }
-        : oneSheep
-    )
-  );
-}
+        const response = await fetch(
+          `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`
+        );
+        if (!response.ok) {
+          console.error(`Weather fetch failed: ${response.status}`);
+          return;
+        }
+        const weather = await response.json();
+        setSheep((prevSheep) =>
+          prevSheep.map((oneSheep) =>
+            oneSheep.id === sheepId
+              ? {
+                  ...oneSheep,
+                  temperature: weather.current.temperature_2m,
+                  wind: weather.current.wind_speed_10m,
+                  humidity: weather.current.relative_humidity_2m,
+                }
+              : oneSheep
+          )
+        );
+        sheepSound(
+          weather.current.relative_humidity_2m,
+          weather.current.wind_speed_10m,
+          weather.current.temperature_2m
+        );
+      }
       startFetching(targetLatitude, targetLongitude);
     }
 

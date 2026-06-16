@@ -18,7 +18,8 @@
     "react-dom": "18.2.0",
     "react-leaflet": "^4.2.1",
     "styled-components": "^6.0.2",
-    "swr": "^2.4.1"
+    "swr": "^2.4.1",
+    "tone": "^15.5.17"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
