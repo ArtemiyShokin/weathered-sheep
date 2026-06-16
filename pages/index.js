@@ -7,6 +7,7 @@ import {
 import InfoBox from "@/components/InfoBox";
 import { useState } from "react";
 import * as Tone from "tone";
+import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -15,6 +16,11 @@ const Map = dynamic(() => import("@/components/Map"), {
 
 export default function HomePage({ sheep, setSheep }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
+  const [muted, setMuted] = useState(false);
+  function handleSoundToggle() {
+    muted ? (Tone.Destination.mute = false) : (Tone.Destination.mute = true);
+    setMuted(!muted);
+  }
 
   return (
     <div>
@@ -38,6 +44,9 @@ export default function HomePage({ sheep, setSheep }) {
         }}
       >
         {sheepMovementActivated ? "Turn off movement" : "Turn on movement"}
+      </StyledButton>
+      <StyledButton onClick={handleSoundToggle}>
+        {muted ? "enable sound" : "disable sound"}
       </StyledButton>
     </div>
   );
