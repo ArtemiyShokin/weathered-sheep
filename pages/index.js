@@ -7,7 +7,6 @@ import {
 import InfoBox from "@/components/InfoBox";
 import { useState } from "react";
 import * as Tone from "tone";
-import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
