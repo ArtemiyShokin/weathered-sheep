@@ -62,7 +62,6 @@ export default function animateSheep(
         );
       }
       startFetching(targetLatitude, targetLongitude);
-      return;
     }
 
     setSheep((prevSheep) =>
