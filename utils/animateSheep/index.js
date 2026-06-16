@@ -55,9 +55,14 @@ export default function animateSheep(
               : oneSheep
           )
         );
+        sheepSound(
+          weather.current.relative_humidity_2m,
+          weather.current.wind_speed_10m,
+          weather.current.temperature_2m
+        );
       }
       startFetching(targetLatitude, targetLongitude);
-      sheepSound(currentSheep.humidity, currentSheep.wind);
+      return;
     }
 
     setSheep((prevSheep) =>

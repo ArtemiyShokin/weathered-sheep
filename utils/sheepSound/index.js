@@ -1,29 +1,30 @@
 import * as Tone from "tone";
+import {
+  normalizeToPointDecimal,
+  convertTo16bitRange,
+  normalizeForSemitones,
+} from "../calculationFunctions";
 
-const synth = new Tone.Synth();
-console.log(Tone.context.state);
+const sampler = new Tone.Sampler({
+  urls: { C1: "/assets/sound-assets/sheep-sound-1.mp3" },
+});
+const feedbackDelay = new Tone.FeedbackDelay();
+const bitCrusher = new Tone.BitCrusher();
+const pitch = new Tone.PitchShift();
 
-export default function sheepSound(humidity, wind) {
-  function numberToDecimal(number) {
-    if (number > 200) {
-      return number / 300;
-    }
-    if (number > 100) {
-      return number / 200;
-    }
-    return number / 100;
-  }
-  const humidityDecimated = numberToDecimal(humidity);
-  const windDecimated = numberToDecimal(wind);
+sampler.connect(feedbackDelay);
+feedbackDelay.connect(bitCrusher);
+bitCrusher.connect(pitch);
+pitch.toDestination();
 
-  const feedbackDelay = new Tone.FeedbackDelay(
-    humidityDecimated,
-    windDecimated
-  );
-  synth.connect(feedbackDelay);
-  feedbackDelay.toDestination();
-  //   if (Tone.context.state !== "running")  KEEP (as a reminder)HERE UNTIL  TONE.JS WORKS WITH MP3 AND ALL INITIAL FILTERS
-  //     Tone.start();
-  //   }
-  return synth.triggerAttackRelease("C3", "4n");
+export default function sheepSound(humidity, wind, temperature) {
+  feedbackDelay.delayTime.value = normalizeToPointDecimal(humidity);
+
+  feedbackDelay.feedback.value = normalizeToPointDecimal(wind);
+
+  bitCrusher.bits.value = convertTo16bitRange(temperature, -89.2, 56.7); // actual min and max temperature recorded on earth so far, adapt for more distinguished effects
+
+  pitch.pitch = normalizeForSemitones(temperature);
+
+  sampler.triggerAttackRelease("C1");
 }
