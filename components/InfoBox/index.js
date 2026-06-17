@@ -1,7 +1,7 @@
-import { InfoBoxContainer, StyledMenuBar } from "./InfoBox.styled";
+import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
 export default function InfoBox({ sheep }) {
   return (
-    <InfoBoxContainer>
+    <StyledWindowContainer>
       <StyledMenuBar />
       <ul>
         {sheep.map((oneSheep) => (
@@ -15,6 +15,6 @@ export default function InfoBox({ sheep }) {
           </li>
         ))}
       </ul>
-    </InfoBoxContainer>
+    </StyledWindowContainer>
   );
 }

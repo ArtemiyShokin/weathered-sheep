@@ -23,7 +23,7 @@ export default function HomePage({ sheep, setSheep }) {
 
   return (
     <div>
-      <StyledHeading>Welcome to the meadow_</StyledHeading>
+      <StyledHeading>Welcome to the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
         <Map
@@ -42,7 +42,7 @@ export default function HomePage({ sheep, setSheep }) {
           console.log(Tone.context.state);
         }}
       >
-        {sheepMovementActivated ? "Turn off movement" : "Turn on movement"}
+        {sheepMovementActivated ? "turn off movement" : "turn on movement"}
       </StyledButton>
       <StyledButton onClick={handleSoundToggle}>
         {muted ? "enable sound" : "disable sound"}
