@@ -22,6 +22,7 @@ export default function HomePage({
   formOpen,
   onFormToggle,
   handleFormSubmit,
+  handleSheepDelete,
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -32,7 +33,12 @@ export default function HomePage({
 
   return (
     <div>
-      {formOpen && <AddSheepForm onFormSubmit={handleFormSubmit} />}
+      {formOpen && (
+        <AddSheepForm
+          onFormSubmit={handleFormSubmit}
+          onFormToggle={onFormToggle}
+        />
+      )}
 
       <StyledHeading>Welcome to the meadow__</StyledHeading>
 
@@ -42,7 +48,7 @@ export default function HomePage({
           setSheep={setSheep}
           sheepMovementActivated={sheepMovementActivated}
         />
-        <InfoBox sheep={sheep} />
+        <InfoBox sheep={sheep} onSheepDelete={handleSheepDelete} />
       </StyledHomePageContainer>
       <StyledButton
         onClick={() => {

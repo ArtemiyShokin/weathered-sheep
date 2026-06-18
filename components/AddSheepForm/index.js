@@ -1,8 +1,8 @@
-import X from "@/assets/x.svg";
+import XIcon from "@/assets/x.svg";
 import { StyledMenuBar, StyledButton, XButton } from "../Global/Global.styled";
 import { StyledFormContainer, StyledForm } from "./AddSheepForm.styled";
 
-export default function AddSheepForm({ onFormSubmit }) {
+export default function AddSheepForm({ onFormSubmit, onFormToggle }) {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -13,8 +13,8 @@ export default function AddSheepForm({ onFormSubmit }) {
   return (
     <StyledFormContainer>
       <StyledMenuBar>
-        <XButton>
-          <X width="10px" height="8px" fill="var(--huemint4)" />
+        <XButton onClick={onFormToggle}>
+          <XIcon width="10px" height="8px" fill="var(--huemint4)" />
         </XButton>
       </StyledMenuBar>
       <StyledForm onSubmit={handleSubmit}>

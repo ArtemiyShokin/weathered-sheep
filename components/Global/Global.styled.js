@@ -48,6 +48,13 @@ export const StyledWindowContainer = styled.div`
 
   li {
     margin: 16px;
+    position: relative;
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 `;
 
