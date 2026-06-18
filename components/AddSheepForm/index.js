@@ -19,7 +19,7 @@ export default function AddSheepForm({ onFormSubmit, onFormToggle }) {
       </StyledMenuBar>
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="name"> Name your sheep</label>
-        <input name="name" id="name" />
+        <input name="name" id="name" required minLength={1}/>
         <StyledButton> create</StyledButton>
       </StyledForm>
     </StyledFormContainer>
