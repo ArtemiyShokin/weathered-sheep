@@ -19,7 +19,7 @@ export default function InfoBox({ sheep, onSheepDelete }) {
             <p>humidity: {oneSheep.humidity}%</p>
             <XButton onClick={() => onSheepDelete(oneSheep.id)}>
               {" "}
-              <XIcon X width="10px" height="8px" fill="var(--huemint4)" />{" "}
+              <XIcon width="10px" height="8px" fill="var(--huemint4)" />{" "}
             </XButton>
           </li>
         ))}
