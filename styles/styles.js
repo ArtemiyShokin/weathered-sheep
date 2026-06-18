@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
   --huemint2: #66cb1d;
   --huemint3: #009d01;
   --huemint4: #e95947;
+  --huemint4-lighter: hsl(7, 79%, 80%);
 
 
   --text-font-family: ${archivo.style.fontFamily};

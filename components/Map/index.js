@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { Marker, TileLayer, ImageOverlay } from "react-leaflet";
 
 import { StyledMapContainer } from "./Map.styled";
-import { InfoBoxContainer, StyledMenuBar } from "../InfoBox/InfoBox.styled";
+import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
 import MapEventsHandler from "@/utils/MapEventsHandler";
 import animateSheep from "@/utils/animateSheep";
 import { randomPositionInBounds } from "@/utils/calculationFunctions";
@@ -76,7 +76,7 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
   }, [sheepMovementActivated]);
 
   return (
-    <InfoBoxContainer>
+    <StyledWindowContainer>
       <StyledMenuBar />
       <StyledMapContainer
         center={[50, 30]}
@@ -103,6 +103,6 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
 
         <MapEventsHandler handleMapClick={handleMapClick} />
       </StyledMapContainer>
-    </InfoBoxContainer>
+    </StyledWindowContainer>
   );
 }

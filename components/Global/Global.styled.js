@@ -30,4 +30,53 @@ export const StyledButton = styled.button`
   &:active {
     background-color: var(--huemint4);
   }
+  &:disabled {
+    background-color: grey;
+  }
+`;
+
+export const StyledWindowContainer = styled.div`
+  margin: 16px;
+  min-width: 400px;
+
+  top: ${(props) => (props.$top === "center" ? "50vh" : "auto")};
+
+  background-color: var(--accent);
+  border-radius: 2px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--huemint4);
+
+  font-family: var(--roboto-font);
+
+  li {
+    margin: 16px;
+    position: relative;
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+`;
+
+export const StyledMenuBar = styled.div`
+  margin: 0;
+  background-color: var(--huemint4);
+  height: 16px;
+  z-index: 100;
+  display: flex;
+  flex-direction: row-reverse;
+  /* align-items: center; */
+`;
+
+export const XButton = styled.button`
+  line-height: 1;
+  background-color: var(--huemint4-lighter);
+  display: flex;
+
+  padding: 2px;
+  border-radius: 2px;
+  align-self: center !important; //no idea why this is so wonky?
 `;

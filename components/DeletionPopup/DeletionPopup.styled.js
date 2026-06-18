@@ -1,8 +1,10 @@
 import styled from "styled-components";
-
-export const InfoBoxContainer = styled.div`
+export const StyledPopupContainer = styled.div`
+  position: absolute;
   margin: 16px;
-  min-width: 400px;
+  width: 400px;
+  top: 40vh;
+  left: 40vw;
 
   background-color: var(--accent);
   border-radius: 2px;
@@ -12,14 +14,8 @@ export const InfoBoxContainer = styled.div`
 
   font-family: var(--roboto-font);
 
-  li {
-    margin: 16px;
+  button {
+    align-self: flex-end;
   }
-`;
-
-export const StyledMenuBar = styled.div`
-  margin: 0;
-  background-color: var(--huemint4);
-  height: 16px;
-  z-index: 100;
+  z-index: 1000;
 `;
