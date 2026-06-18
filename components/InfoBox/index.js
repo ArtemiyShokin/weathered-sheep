@@ -17,7 +17,7 @@ export default function InfoBox({ sheep, onSheepDelete }) {
             <p>temperature: {oneSheep.temperature}C</p>
             <p>wind-speed: {oneSheep.wind}km/h</p>
             <p>humidity: {oneSheep.humidity}%</p>
-            <XButton onClick={() => onSheepDelete(oneSheep.id)}>
+            <XButton onClick={() => onSheepDelete(oneSheep.id)} aria-label={`Delete ${oneSheep.name}`}>
               {" "}
               <XIcon width="10px" height="8px" fill="var(--huemint4)" />{" "}
             </XButton>
