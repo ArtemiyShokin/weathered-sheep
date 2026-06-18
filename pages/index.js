@@ -1,11 +1,14 @@
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import {
   StyledHeading,
   StyledHomePageContainer,
   StyledButton,
 } from "@/components/Global/Global.styled";
+
 import InfoBox from "@/components/InfoBox";
-import { useState } from "react";
+import AddSheepForm from "@/components/AddSheepForm";
+
 import * as Tone from "tone";
 
 const Map = dynamic(() => import("@/components/Map"), {
@@ -13,7 +16,13 @@ const Map = dynamic(() => import("@/components/Map"), {
   loading: () => <p>A map is loading</p>,
 });
 
-export default function HomePage({ sheep, setSheep }) {
+export default function HomePage({
+  sheep,
+  setSheep,
+  formOpen,
+  onFormToggle,
+  handleFormSubmit,
+}) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
   function handleSoundToggle() {
@@ -23,6 +32,8 @@ export default function HomePage({ sheep, setSheep }) {
 
   return (
     <div>
+      {formOpen && <AddSheepForm onFormSubmit={handleFormSubmit} />}
+
       <StyledHeading>Welcome to the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
@@ -47,6 +58,7 @@ export default function HomePage({ sheep, setSheep }) {
       <StyledButton onClick={handleSoundToggle}>
         {muted ? "enable sound" : "disable sound"}
       </StyledButton>
+      <StyledButton onClick={onFormToggle}> add sheep</StyledButton>
     </div>
   );
 }

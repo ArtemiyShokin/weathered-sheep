@@ -22,7 +22,7 @@ export default function sheepSound(humidity, wind, temperature) {
 
   feedbackDelay.feedback.value = normalizeToPointDecimal(wind);
 
-  bitCrusher.bits.value = convertTo16bitRange(temperature, -89.2, 56.7); // actual min and max temperature recorded on earth so far, adapt for more distinguished effects
+  bitCrusher.bits.value = convertTo16bitRange(temperature, -10, 50); // -89.2, 56.7: actual min and max temperature recorded on earth so far, adapt for more distinguished effects
 
   pitch.pitch = normalizeForSemitones(temperature);
 

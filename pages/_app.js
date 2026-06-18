@@ -1,5 +1,6 @@
 import GlobalStyle from "@/styles/styles";
 import { useState } from "react";
+import { uid } from "uid";
 
 export default function App({ Component, pageProps }) {
   const [sheep, setSheep] = useState([
@@ -32,10 +33,37 @@ export default function App({ Component, pageProps }) {
     },
   ]);
 
+  const [formOpen, setFormOpen] = useState(false);
+  function handleFormSubmit(data) {
+    setSheep((prevSheep) => [
+      {
+        id: uid(),
+        position: [45, 40],
+        weatherLocation: "nah",
+        temperature: "_",
+        wind: "_",
+        humidity: "_",
+        ...data,
+      },
+      ...prevSheep,
+    ]);
+    setFormOpen(!formOpen);
+  }
+  function handleFormToggle() {
+    setFormOpen(!formOpen);
+  }
+
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} sheep={sheep} setSheep={setSheep} />
+      <Component
+        {...pageProps}
+        sheep={sheep}
+        setSheep={setSheep}
+        handleFormSubmit={handleFormSubmit}
+        formOpen={formOpen}
+        onFormToggle={handleFormToggle}
+      />
     </>
   );
 }
