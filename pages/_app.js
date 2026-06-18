@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }) {
   });
 
   if (!mounted) {
-    return null; // or loading skeleton
+    return null;
   }
 
   function handleFormSubmit(data) {

@@ -48,7 +48,7 @@ export default function HomePage({
           setSheep={setSheep}
           sheepMovementActivated={sheepMovementActivated}
         />
-        <InfoBox sheep={sheep} onSheepDelete={handleSheepDelete} />
+        <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
       </StyledHomePageContainer>
       <StyledButton
         onClick={() => {
