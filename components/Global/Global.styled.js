@@ -30,6 +30,9 @@ export const StyledButton = styled.button`
   &:active {
     background-color: var(--huemint4);
   }
+  &:disabled {
+    background-color: grey;
+  }
 `;
 
 export const StyledWindowContainer = styled.div`

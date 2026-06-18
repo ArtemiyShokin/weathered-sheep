@@ -64,7 +64,9 @@ export default function HomePage({
       <StyledButton onClick={handleSoundToggle}>
         {muted ? "enable sound" : "disable sound"}
       </StyledButton>
-      <StyledButton onClick={onFormToggle}> add sheep</StyledButton>
+      <StyledButton onClick={onFormToggle} disabled={sheep.length >= 6}>
+        add sheep
+      </StyledButton>
     </div>
   );
 }
