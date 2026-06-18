@@ -68,7 +68,7 @@ export const StyledMenuBar = styled.div`
   z-index: 100;
   display: flex;
   flex-direction: row-reverse;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 export const XButton = styled.button`
