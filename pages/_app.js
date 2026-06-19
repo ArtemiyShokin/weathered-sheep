@@ -44,21 +44,6 @@ export default function App({ Component, pageProps }) {
     return null;
   }
 
-  // function handleFormSubmit(data) {
-  //   setSheep((prevSheep) => [
-  //     ...prevSheep,
-  //     {
-  //       id: uid(),
-  //       position: [45, 40],
-  //       weatherLocation: "nah",
-  //       temperature: "_",
-  //       wind: "_",
-  //       humidity: "_",
-  //       ...data,
-  //     },
-  //   ]);
-  //   setFormOpen(!formOpen);
-  // }
   function handleFormSubmit(data) {
     setSheep((prevSheep) => {
       if (prevSheep.length >= 9) return prevSheep;

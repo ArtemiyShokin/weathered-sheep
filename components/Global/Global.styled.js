@@ -37,7 +37,7 @@ export const StyledButton = styled.button`
 
 export const StyledWindowContainer = styled.div`
   margin: 16px;
-  min-width: 400px;
+  width: 60rem;
 
   top: ${(props) => (props.$top === "center" ? "50vh" : "auto")};
 

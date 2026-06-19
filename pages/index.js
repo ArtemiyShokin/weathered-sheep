@@ -44,7 +44,7 @@ export default function HomePage({
       <StyledHeading>Welcome to the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
-        <ThreeScene />
+        <ThreeScene sheep={sheep} />
 
         <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
       </StyledHomePageContainer>
