@@ -6,11 +6,12 @@ import {
   StyledButton,
 } from "@/components/Global/Global.styled";
 
-import InfoBox from "@/components/InfoBox";
-import AddSheepForm from "@/components/AddSheepForm";
-
 import * as Tone from "tone";
 
+import ThreeScene from "@/components/3DWorld";
+import Boxes from "@/components/3DWorld/tutorialfile";
+import InfoBox from "@/components/InfoBox";
+import AddSheepForm from "@/components/AddSheepForm";
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <p>A map is loading</p>,
@@ -43,11 +44,8 @@ export default function HomePage({
       <StyledHeading>Welcome to the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
-        <Map
-          sheep={sheep}
-          setSheep={setSheep}
-          sheepMovementActivated={sheepMovementActivated}
-        />
+        <ThreeScene />
+
         <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
       </StyledHomePageContainer>
       <StyledButton
@@ -67,6 +65,11 @@ export default function HomePage({
       <StyledButton onClick={onFormToggle} disabled={sheep.length >= 6}>
         add sheep
       </StyledButton>
+      <Map
+        sheep={sheep}
+        setSheep={setSheep}
+        sheepMovementActivated={sheepMovementActivated}
+      />
     </div>
   );
 }
