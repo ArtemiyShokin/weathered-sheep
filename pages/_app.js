@@ -1,6 +1,7 @@
 import GlobalStyle from "@/styles/styles";
 import { useState, useEffect } from "react";
 import { uid } from "uid";
+import { customAlphabet } from "nanoid";
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
         id: 1,
         position: [50, -30],
         infoPosition: [0, 0],
+        velocity: [0.1, 0.1],
         name: "Nephele",
         temperature: "_",
         wind: "_",
@@ -26,6 +28,7 @@ export default function App({ Component, pageProps }) {
         id: 2,
         position: [40, 20],
         infoPosition: [0, 0],
+        velocity: [0.1, 0.1],
         name: "Nereide",
         temperature: "_",
         wind: "_",
@@ -35,6 +38,7 @@ export default function App({ Component, pageProps }) {
         id: 3,
         position: [0, 40],
         infoPosition: [0, 0],
+        velocity: [0.1, 0.1],
         name: "Hyade",
         temperature: "_",
         wind: "_",
@@ -54,8 +58,10 @@ export default function App({ Component, pageProps }) {
         ...prevSheep,
         {
           ...data,
-          id: uid(),
+          id: customAlphabet("0123456789", 12),
           position: [10, 10],
+          infoPosition: [0, 0],
+          velocity: [0.1, 0.1],
           temperature: "_",
           wind: "_",
           humidity: "_",
@@ -74,13 +80,19 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  function handleSheepPositionUpdate(sheepId, newLatitude, newLongitude) {
+  function handleSheepPositionUpdate(
+    sheepId,
+    newLatitude,
+    newLongitude,
+    newVelocity
+  ) {
     setSheep((prevSheep) =>
       prevSheep.map((oneSheep) =>
         oneSheep.id === sheepId
           ? {
               ...oneSheep,
               infoPosition: [newLatitude, newLongitude],
+              velocity: newVelocity,
             }
           : oneSheep
       )

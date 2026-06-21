@@ -23,6 +23,7 @@ function Earth(props) {
 
 function Sheep({ sheep, onSheepPositionUpdate }) {
   const meshRef = useRef();
+  const seedRef = useRef([sheep.position[0], sheep.position[1]]);
 
   // Initial position
   const [x, y, z] = latLngToVector3(
@@ -31,18 +32,33 @@ function Sheep({ sheep, onSheepPositionUpdate }) {
     earthRadius
   );
 
+  const positionRef = useRef([...sheep.position]);
+  const velocityRef = useRef([...sheep.velocity]);
+
   useFrame((state) => {
     if (!meshRef.current) return;
 
-    const time = state.clock.elapsedTime;
+    // const time = state.clock.elapsedTime;
 
-    const { newLatitude, newLongitude } = wanderSheep(sheep, time);
+    const { newLatitude, newLongitude, newVelocity } = wanderSheep(
+      {
+        ...sheep,
+        position: positionRef.current,
+        velocity: velocityRef.current,
+      },
+      state.clock.elapsedTime,
+      seedRef.current
+    );
+
+    positionRef.current = [newLatitude, newLongitude];
+    velocityRef.current = newVelocity;
 
     const [x, y, z] = latLngToVector3(newLatitude, newLongitude, earthRadius);
 
     meshRef.current.position.set(x, y, z);
+    // console.log(newLatitude, newLongitude);
 
-    onSheepPositionUpdate(sheep.id, newLatitude, newLongitude);
+    onSheepPositionUpdate(sheep.id, newLatitude, newLongitude, newVelocity);
   });
 
   return (

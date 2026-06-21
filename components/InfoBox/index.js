@@ -34,8 +34,8 @@ export default function InfoBox({ sheep, handleSheepDelete }) {
           {sheep.map((oneSheep) => (
             <li key={oneSheep.id}>
               <h2>🐑 {oneSheep.name}</h2>
-              <p>lat: {oneSheep.infoPosition[0]}</p>
-              <p>lng: {oneSheep.infoPosition[1]} </p>
+              <p>lat: {oneSheep.infoPosition[0].toFixed(2)}</p>
+              <p>lng: {oneSheep.infoPosition[1].toFixed(2)} </p>
               <p>temperature: {oneSheep.temperature}C</p>
               <p>wind-speed: {oneSheep.wind}km/h</p>
               <p>humidity: {oneSheep.humidity}%</p>
