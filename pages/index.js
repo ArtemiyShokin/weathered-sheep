@@ -24,6 +24,7 @@ export default function HomePage({
   onFormToggle,
   handleFormSubmit,
   handleSheepDelete,
+  handleSheepPositionUpdate,
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -44,7 +45,10 @@ export default function HomePage({
       <StyledHeading>Welcome to the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
-        <ThreeScene sheep={sheep} />
+        <ThreeScene
+          sheep={sheep}
+          handleSheepPositionUpdate={handleSheepPositionUpdate}
+        />
 
         <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
       </StyledHomePageContainer>
@@ -65,11 +69,13 @@ export default function HomePage({
       <StyledButton onClick={onFormToggle} disabled={sheep.length >= 6}>
         add sheep
       </StyledButton>
-      <Map
+      <StyledButton> new movement </StyledButton>
+
+      {/* <Map
         sheep={sheep}
         setSheep={setSheep}
         sheepMovementActivated={sheepMovementActivated}
-      />
+      /> */}
     </div>
   );
 }

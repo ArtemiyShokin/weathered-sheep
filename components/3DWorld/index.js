@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
 import { TrackballControls } from "@react-three/drei";
 import { latLngToVector3 } from "@/utils/calculationFunctions";
-
+import wanderSheep from "@/utils/animateSheep/animateSheepUpdate";
 const earthRadius = 2;
 
 function Earth(props) {
@@ -21,17 +21,40 @@ function Earth(props) {
   );
 }
 
-function Sheep({ latitude, longitude }) {
-  const position = latLngToVector3(latitude, longitude, earthRadius);
+function Sheep({ sheep, onSheepPositionUpdate }) {
+  const meshRef = useRef();
+
+  // Initial position
+  const [x, y, z] = latLngToVector3(
+    sheep.position[0],
+    sheep.position[1],
+    earthRadius
+  );
+
+  useFrame((state) => {
+    if (!meshRef.current) return;
+
+    const time = state.clock.elapsedTime;
+
+    const { newLatitude, newLongitude } = wanderSheep(sheep, time);
+
+    const [x, y, z] = latLngToVector3(newLatitude, newLongitude, earthRadius);
+
+    meshRef.current.position.set(x, y, z);
+
+    onSheepPositionUpdate(sheep.id, newLatitude, newLongitude);
+  });
+
   return (
-    <mesh position={position}>
+    <mesh ref={meshRef} position={[x, y, z]}>
       <sphereGeometry args={[0.1]} />
       <meshStandardMaterial color="orange" />
     </mesh>
   );
 }
 
-export default function ThreeScene({ sheep }) {
+export default function ThreeScene({ sheep, handleSheepPositionUpdate }) {
+  console.log("3D Sheep:", sheep);
   return (
     <StyledWindowContainer>
       {/* <StyledMenuBar /> */}
@@ -46,15 +69,18 @@ export default function ThreeScene({ sheep }) {
         />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
         <Earth />
-        {sheep.map((oneSheep) => (
-          <Sheep
-            key={oneSheep.id}
-            latitude={oneSheep.position[0]}
-            longitude={oneSheep.position[1]}
-          />
-        ))}
+        {sheep.map((oneSheep) => {
+          console.log(oneSheep);
+          return (
+            <Sheep
+              key={oneSheep.id}
+              sheep={oneSheep}
+              onSheepPositionUpdate={handleSheepPositionUpdate}
+            />
+          );
+        })}
 
-        <TrackballControls noZoom />
+        <TrackballControls />
       </Canvas>
     </StyledWindowContainer>
   );

@@ -15,7 +15,8 @@ export default function App({ Component, pageProps }) {
     defaultValue: [
       {
         id: 1,
-        position: [50, 30],
+        position: [50, -30],
+        infoPosition: [0, 0],
         name: "Nephele",
         temperature: "_",
         wind: "_",
@@ -24,6 +25,7 @@ export default function App({ Component, pageProps }) {
       {
         id: 2,
         position: [40, 20],
+        infoPosition: [0, 0],
         name: "Nereide",
         temperature: "_",
         wind: "_",
@@ -31,7 +33,8 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: 3,
-        position: [33, 40],
+        position: [0, 40],
+        infoPosition: [0, 0],
         name: "Hyade",
         temperature: "_",
         wind: "_",
@@ -50,9 +53,9 @@ export default function App({ Component, pageProps }) {
       return [
         ...prevSheep,
         {
-          id: uid(),
-          position: [45, 40],
           ...data,
+          id: uid(),
+          position: [10, 10],
           temperature: "_",
           wind: "_",
           humidity: "_",
@@ -71,12 +74,26 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleSheepPositionUpdate(sheepId, newLatitude, newLongitude) {
+    setSheep((prevSheep) =>
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
+          ? {
+              ...oneSheep,
+              infoPosition: [newLatitude, newLongitude],
+            }
+          : oneSheep
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
       <Component
         {...pageProps}
         sheep={sheep}
+        handleSheepPositionUpdate={handleSheepPositionUpdate}
         setSheep={setSheep}
         handleFormSubmit={handleFormSubmit}
         formOpen={formOpen}
