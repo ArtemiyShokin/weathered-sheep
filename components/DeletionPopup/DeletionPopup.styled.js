@@ -14,6 +14,10 @@ export const StyledPopupContainer = styled.div`
 
   font-family: var(--roboto-font);
 
+  p {
+    margin: 8px;
+  }
+
   button {
     align-self: flex-end;
   }

@@ -13,6 +13,7 @@ export const StyledHeading = styled.h1`
 export const StyledHomePageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  height: 90vh;
 `;
 
 export const StyledButton = styled.button`
@@ -37,7 +38,7 @@ export const StyledButton = styled.button`
 
 export const StyledWindowContainer = styled.div`
   margin: 16px;
-  min-width: 400px;
+  width: 60rem;
 
   top: ${(props) => (props.$top === "center" ? "50vh" : "auto")};
 

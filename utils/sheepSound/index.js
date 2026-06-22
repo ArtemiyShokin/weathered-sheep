@@ -5,26 +5,35 @@ import {
   normalizeForSemitones,
 } from "../calculationFunctions";
 
-const sampler = new Tone.Sampler({
-  urls: { C1: "/assets/sound-assets/sheep-sound-1.mp3" },
-});
-const feedbackDelay = new Tone.FeedbackDelay();
-const bitCrusher = new Tone.BitCrusher();
-const pitch = new Tone.PitchShift();
+let sampler, feedbackDelay, bitCrusher, pitch;
+let loadPromise;
 
-sampler.connect(feedbackDelay);
-feedbackDelay.connect(bitCrusher);
-bitCrusher.connect(pitch);
-pitch.toDestination();
+function initAudio() {
+  if (sampler) return;
 
-export default function sheepSound(humidity, wind, temperature) {
+  sampler = new Tone.Sampler({
+    urls: { C1: "/assets/sound-assets/sheep-sound-1.mp3" },
+  });
+  feedbackDelay = new Tone.FeedbackDelay();
+  bitCrusher = new Tone.BitCrusher();
+  pitch = new Tone.PitchShift();
+
+  sampler.connect(feedbackDelay);
+  feedbackDelay.connect(bitCrusher);
+  bitCrusher.connect(pitch);
+  pitch.toDestination();
+
+  loadPromise = Tone.loaded();
+}
+
+export default async function sheepSound(humidity, wind, temperature) {
+  await Tone.start();
+  initAudio();
+  await loadPromise;
+
   feedbackDelay.delayTime.value = normalizeToPointDecimal(humidity);
-
   feedbackDelay.feedback.value = normalizeToPointDecimal(wind);
-
-  bitCrusher.bits.value = convertTo16bitRange(temperature, -10, 50); // -89.2, 56.7: actual min and max temperature recorded on earth so far, adapt for more distinguished effects
-
+  bitCrusher.bits.value = convertTo16bitRange(temperature, -89, 57);
   pitch.pitch = normalizeForSemitones(temperature);
-
   sampler.triggerAttackRelease("C1");
 }

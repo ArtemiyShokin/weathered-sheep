@@ -11,7 +11,7 @@ import animateSheep from "@/utils/animateSheep";
 import { randomPositionInBounds } from "@/utils/calculationFunctions";
 import { bounds } from "@/utils/MapData";
 import { randomDuration } from "@/utils/calculationFunctions";
-const zoom = 4;
+const zoom = 1;
 
 export default function Map({ sheep, setSheep, sheepMovementActivated }) {
   const sheepRef = useRef(sheep);
@@ -81,16 +81,16 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
       <StyledMapContainer
         center={[50, 30]}
         zoom={zoom}
-        maxZoom={zoom}
-        minZoom={zoom}
-        dragging={false}
-        zoomControl={false}
+        // maxZoom={zoom}
+        minZoom={2}
+        dragging={true}
+        zoomControl={true}
       >
-        <ImageOverlay
+        {/* <ImageOverlay
           url="/assets/image-assets/greengrass.jpg"
           bounds={bounds}
           opacity={0.48}
-        />
+        /> */}
         {sheep.map((oneSheep) => (
           <Marker
             key={oneSheep.id}

@@ -2,6 +2,7 @@ import GlobalStyle from "@/styles/styles";
 import { useState, useEffect } from "react";
 import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
+import { randomPositionNoBounds } from "@/utils/calculationFunctions";
 
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
@@ -14,24 +15,30 @@ export default function App({ Component, pageProps }) {
   const [sheep, setSheep] = useLocalStorageState("sheep", {
     defaultValue: [
       {
-        id: 1,
-        position: [50, 30],
+        id: "1",
+        position: [50, -30],
+        infoPosition: [0, 0],
+        velocity: [0.1, 0.1],
         name: "Nephele",
         temperature: "_",
         wind: "_",
         humidity: "_",
       },
       {
-        id: 2,
+        id: "2",
         position: [40, 20],
+        infoPosition: [0, 0],
+        velocity: [0.1, 0.1],
         name: "Nereide",
         temperature: "_",
         wind: "_",
         humidity: "_",
       },
       {
-        id: 3,
-        position: [33, 40],
+        id: "3",
+        position: [0, 40],
+        infoPosition: [0, 0],
+        velocity: [0.1, 0.1],
         name: "Hyade",
         temperature: "_",
         wind: "_",
@@ -44,30 +51,18 @@ export default function App({ Component, pageProps }) {
     return null;
   }
 
-  // function handleFormSubmit(data) {
-  //   setSheep((prevSheep) => [
-  //     ...prevSheep,
-  //     {
-  //       id: uid(),
-  //       position: [45, 40],
-  //       weatherLocation: "nah",
-  //       temperature: "_",
-  //       wind: "_",
-  //       humidity: "_",
-  //       ...data,
-  //     },
-  //   ]);
-  //   setFormOpen(!formOpen);
-  // }
   function handleFormSubmit(data) {
     setSheep((prevSheep) => {
       if (prevSheep.length >= 9) return prevSheep;
+      const { latitude, longitude } = randomPositionNoBounds();
       return [
         ...prevSheep,
         {
-          id: uid(),
-          position: [45, 40],
           ...data,
+          id: uid(),
+          position: [latitude, longitude],
+          infoPosition: [0, 0],
+          velocity: [0.1, 0.1],
           temperature: "_",
           wind: "_",
           humidity: "_",
@@ -86,12 +81,53 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleSheepPositionUpdate(
+    sheepId,
+    newLatitude,
+    newLongitude,
+    newVelocity
+  ) {
+    setSheep((prevSheep) =>
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
+          ? {
+              ...oneSheep,
+              infoPosition: [newLatitude, newLongitude],
+              velocity: newVelocity,
+            }
+          : oneSheep
+      )
+    );
+  }
+
+  function handleSheepWeatherUpdate(
+    sheepId,
+    currentTemperature,
+    currentWind,
+    currentHumidity
+  ) {
+    setSheep((prevSheep) =>
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
+          ? {
+              ...oneSheep,
+              temperature: currentTemperature,
+              wind: currentWind,
+              humidity: currentHumidity,
+            }
+          : oneSheep
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
       <Component
         {...pageProps}
         sheep={sheep}
+        handleSheepPositionUpdate={handleSheepPositionUpdate}
+        handleSheepWeatherUpdate={handleSheepWeatherUpdate}
         setSheep={setSheep}
         handleFormSubmit={handleFormSubmit}
         formOpen={formOpen}

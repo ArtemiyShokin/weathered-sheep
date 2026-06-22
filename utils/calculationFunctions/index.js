@@ -1,5 +1,16 @@
 import { bounds } from "../MapData";
 
+export function latLngToVector3(lat, lng, radius) {
+  const phi = (90 - lat) * (Math.PI / 180);
+  const theta = (lng + 180) * (Math.PI / 180);
+
+  const x = -(radius * Math.sin(phi) * Math.cos(theta));
+  const z = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+
+  return [x, y, z];
+}
+
 export function normalizeToPointDecimal(number) {
   if (number > 200) {
     return number / 300;
@@ -23,6 +34,13 @@ export function randomPositionInBounds() {
 
   const longitude =
     bounds[0][1] + Math.random() * (bounds[1][1] - bounds[0][1]);
+
+  return [latitude, longitude];
+}
+
+export function randomPositionNoBounds() {
+  const latitude = -90 + Math.random() * 180;
+  const longitude = -180 + Math.random() * 360;
 
   return [latitude, longitude];
 }
