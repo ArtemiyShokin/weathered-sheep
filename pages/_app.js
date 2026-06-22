@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: "2",
-        position: [40, 20],
+        position: [150, 0],
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
         name: "Nereide",

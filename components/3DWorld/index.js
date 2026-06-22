@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
 import { TrackballControls, Html, useProgress } from "@react-three/drei";
 import Sheep from "@/components/3DSheep";
-
+import { StyledCanvas } from "./3DWorld.styled";
 export const earthRadius = 2;
 
 function Loader() {
@@ -29,38 +29,32 @@ export default function ThreeScene({
   sheepMovementActivated,
 }) {
   return (
-    <StyledWindowContainer>
-      <Canvas>
-        <Suspense fallback={<Loader />}>
-          <ambientLight intensity={Math.PI / 2} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            decay={0}
-            intensity={Math.PI / 2}
-          />
-          <pointLight
-            position={[-10, -10, -10]}
-            decay={0}
-            intensity={Math.PI}
-          />
-          <Earth />
-          {sheep.map((oneSheep) => {
-            return (
-              <Sheep
-                key={oneSheep.id}
-                sheep={oneSheep}
-                onSheepPositionUpdate={handleSheepPositionUpdate}
-                onSheepWeatherUpdate={handleSheepWeatherUpdate}
-                sheepMovementActivated={sheepMovementActivated}
-              />
-            );
-          })}
+    <StyledCanvas>
+      <Suspense fallback={<Loader />}>
+        <ambientLight intensity={Math.PI / 2} />
+        <spotLight
+          position={[10, 10, 10]}
+          angle={0.15}
+          penumbra={1}
+          decay={0}
+          intensity={Math.PI / 2}
+        />
+        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+        <Earth />
+        {sheep.map((oneSheep) => {
+          return (
+            <Sheep
+              key={oneSheep.id}
+              sheep={oneSheep}
+              onSheepPositionUpdate={handleSheepPositionUpdate}
+              onSheepWeatherUpdate={handleSheepWeatherUpdate}
+              sheepMovementActivated={sheepMovementActivated}
+            />
+          );
+        })}
 
-          <TrackballControls />
-        </Suspense>
-      </Canvas>
-    </StyledWindowContainer>
+        <TrackballControls />
+      </Suspense>
+    </StyledCanvas>
   );
 }
