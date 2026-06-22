@@ -13,6 +13,7 @@ export const StyledHeading = styled.h1`
 export const StyledHomePageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  height: 90vh;
 `;
 
 export const StyledButton = styled.button`

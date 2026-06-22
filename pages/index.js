@@ -9,7 +9,6 @@ import {
 import * as Tone from "tone";
 
 import ThreeScene from "@/components/3DWorld";
-import Boxes from "@/components/3DWorld/tutorialfile";
 import InfoBox from "@/components/InfoBox";
 import AddSheepForm from "@/components/AddSheepForm";
 const Map = dynamic(() => import("@/components/Map"), {
@@ -25,6 +24,7 @@ export default function HomePage({
   handleFormSubmit,
   handleSheepDelete,
   handleSheepPositionUpdate,
+  handleSheepWeatherUpdate,
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -48,6 +48,8 @@ export default function HomePage({
         <ThreeScene
           sheep={sheep}
           handleSheepPositionUpdate={handleSheepPositionUpdate}
+          handleSheepWeatherUpdate={handleSheepWeatherUpdate}
+          sheepMovementActivated={sheepMovementActivated}
         />
 
         <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
@@ -69,7 +71,6 @@ export default function HomePage({
       <StyledButton onClick={onFormToggle} disabled={sheep.length >= 6}>
         add sheep
       </StyledButton>
-      <StyledButton> new movement </StyledButton>
 
       {/* <Map
         sheep={sheep}

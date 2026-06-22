@@ -1,8 +1,8 @@
 import GlobalStyle from "@/styles/styles";
 import { useState, useEffect } from "react";
 import { uid } from "uid";
-import { customAlphabet } from "nanoid";
 import useLocalStorageState from "use-local-storage-state";
+import { randomPositionNoBounds } from "@/utils/calculationFunctions";
 
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
   const [sheep, setSheep] = useLocalStorageState("sheep", {
     defaultValue: [
       {
-        id: 1,
+        id: "1",
         position: [50, -30],
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }) {
         humidity: "_",
       },
       {
-        id: 2,
+        id: "2",
         position: [40, 20],
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }) {
         humidity: "_",
       },
       {
-        id: 3,
+        id: "3",
         position: [0, 40],
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
@@ -54,12 +54,13 @@ export default function App({ Component, pageProps }) {
   function handleFormSubmit(data) {
     setSheep((prevSheep) => {
       if (prevSheep.length >= 9) return prevSheep;
+      const { latitude, longitude } = randomPositionNoBounds();
       return [
         ...prevSheep,
         {
           ...data,
-          id: customAlphabet("0123456789", 12),
-          position: [10, 10],
+          id: uid(),
+          position: [latitude, longitude],
           infoPosition: [0, 0],
           velocity: [0.1, 0.1],
           temperature: "_",
@@ -99,6 +100,26 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleSheepWeatherUpdate(
+    sheepId,
+    currentTemperature,
+    currentWind,
+    currentHumidity
+  ) {
+    setSheep((prevSheep) =>
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
+          ? {
+              ...oneSheep,
+              temperature: currentTemperature,
+              wind: currentWind,
+              humidity: currentHumidity,
+            }
+          : oneSheep
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -106,6 +127,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         sheep={sheep}
         handleSheepPositionUpdate={handleSheepPositionUpdate}
+        handleSheepWeatherUpdate={handleSheepWeatherUpdate}
         setSheep={setSheep}
         handleFormSubmit={handleFormSubmit}
         formOpen={formOpen}

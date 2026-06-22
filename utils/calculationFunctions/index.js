@@ -38,6 +38,13 @@ export function randomPositionInBounds() {
   return [latitude, longitude];
 }
 
+export function randomPositionNoBounds() {
+  const latitude = -90 + Math.random() * 180;
+  const longitude = -180 + Math.random() * 360;
+
+  return [latitude, longitude];
+}
+
 export function normalizeForSemitones(number) {
   return Math.round(((number + 90) / (56.7 + 89.2)) * 24 - 12);
 }
