@@ -33,8 +33,9 @@ export default function wanderSheep(sheep, time, seed) {
 
   let newLongitude = sheep.position[1] + longitudeVelocity;
 
-  // Clamp latitude
+  // Clamp latitude and reflect velocity so sheep bounce off the poles
   const clampedLatitude = Math.max(-90, Math.min(90, newLatitude));
+  if (clampedLatitude !== newLatitude) latitudeVelocity = -latitudeVelocity;
 
   // Wrap longitude
   if (newLongitude > 180) newLongitude -= 360;

@@ -27,6 +27,7 @@ export default function ThreeScene({
   handleSheepPositionUpdate,
   handleSheepWeatherUpdate,
   sheepMovementActivated,
+  soundVersion,
 }) {
   return (
     <StyledCanvas>
@@ -49,6 +50,7 @@ export default function ThreeScene({
               onSheepPositionUpdate={handleSheepPositionUpdate}
               onSheepWeatherUpdate={handleSheepWeatherUpdate}
               sheepMovementActivated={sheepMovementActivated}
+              soundVersion={soundVersion}
             />
           );
         })}

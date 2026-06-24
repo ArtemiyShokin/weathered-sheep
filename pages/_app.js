@@ -7,6 +7,7 @@ import { randomPositionNoBounds } from "@/utils/calculationFunctions";
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [soundVersion, setSoundVersion] = useState("mp3");
 
   useEffect(() => {
     setMounted(true);
@@ -26,7 +27,7 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: "2",
-        position: [150, 0],
+        position: [90, 0],
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
         name: "Nereide",
@@ -53,8 +54,8 @@ export default function App({ Component, pageProps }) {
 
   function handleFormSubmit(data) {
     setSheep((prevSheep) => {
-      if (prevSheep.length >= 9) return prevSheep;
-      const { latitude, longitude } = randomPositionNoBounds();
+      if (prevSheep.length >= 6) return prevSheep;
+      const [latitude, longitude] = randomPositionNoBounds();
       return [
         ...prevSheep,
         {
@@ -92,6 +93,7 @@ export default function App({ Component, pageProps }) {
         oneSheep.id === sheepId
           ? {
               ...oneSheep,
+              position: [newLatitude, newLongitude],
               infoPosition: [newLatitude, newLongitude],
               velocity: newVelocity,
             }
@@ -119,6 +121,9 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+  function handleSoundVersionToggle(version) {
+    setSoundVersion(version);
+  }
 
   return (
     <>
@@ -133,6 +138,8 @@ export default function App({ Component, pageProps }) {
         formOpen={formOpen}
         onFormToggle={handleFormToggle}
         handleSheepDelete={handleSheepDelete}
+        onSoundVersionToggle={handleSoundVersionToggle}
+        soundVersion={soundVersion}
       />
     </>
   );

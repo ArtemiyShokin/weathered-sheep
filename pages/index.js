@@ -4,6 +4,7 @@ import {
   StyledHeading,
   StyledHomePageContainer,
   StyledButton,
+  StyledButtonContainer,
 } from "@/components/Global/Global.styled";
 
 import * as Tone from "tone";
@@ -18,6 +19,7 @@ const Map = dynamic(() => import("@/components/Map"), {
 
 export default function HomePage({
   sheep,
+  soundVersion,
   setSheep,
   formOpen,
   onFormToggle,
@@ -25,6 +27,7 @@ export default function HomePage({
   handleSheepDelete,
   handleSheepPositionUpdate,
   handleSheepWeatherUpdate,
+  onSoundVersionToggle,
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -50,27 +53,42 @@ export default function HomePage({
           handleSheepPositionUpdate={handleSheepPositionUpdate}
           handleSheepWeatherUpdate={handleSheepWeatherUpdate}
           sheepMovementActivated={sheepMovementActivated}
+          soundVersion={soundVersion}
         />
 
         <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
       </StyledHomePageContainer>
-      <StyledButton
-        onClick={() => {
-          if (Tone.context.state !== "running") {
-            Tone.start();
-          }
-          setSheepMovementActivated(!sheepMovementActivated);
-          console.log(Tone.context.state);
-        }}
-      >
-        {sheepMovementActivated ? "turn off movement" : "turn on movement"}
-      </StyledButton>
-      <StyledButton onClick={handleSoundToggle}>
-        {muted ? "enable sound" : "disable sound"}
-      </StyledButton>
-      <StyledButton onClick={onFormToggle} disabled={sheep.length >= 6}>
-        add sheep
-      </StyledButton>
+      <StyledButtonContainer>
+        <StyledButton
+          onClick={() => {
+            if (Tone.context.state !== "running") {
+              Tone.start();
+            }
+            setSheepMovementActivated(!sheepMovementActivated);
+            console.log(Tone.context.state);
+          }}
+        >
+          {sheepMovementActivated ? "turn off movement" : "turn on movement"}
+        </StyledButton>
+        <StyledButton onClick={handleSoundToggle}>
+          {muted ? "enable sound" : "disable sound"}
+        </StyledButton>
+        <StyledButton onClick={onFormToggle} disabled={sheep.length >= 6}>
+          add sheep
+        </StyledButton>
+        <StyledButton
+          onClick={() => onSoundVersionToggle("mp3")}
+          disabled={soundVersion === "mp3" && true}
+        >
+          sound: mp3
+        </StyledButton>
+        <StyledButton
+          onClick={() => onSoundVersionToggle("synth")}
+          disabled={soundVersion === "synth" && true}
+        >
+          sound: synth
+        </StyledButton>
+      </StyledButtonContainer>
 
       {/* <Map
         sheep={sheep}

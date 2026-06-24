@@ -12,7 +12,7 @@ export function latLngToVector3(lat, lng, radius) {
 }
 
 export function normalizeToPointDecimal(number) {
-  if (number > 200) {
+  if (number >= 200) {
     return number / 300;
   }
   if (number > 100) {

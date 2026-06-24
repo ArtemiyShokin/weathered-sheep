@@ -13,7 +13,7 @@ export const StyledHeading = styled.h1`
 export const StyledHomePageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: 90vh;
+  height: 80vh;
 `;
 
 export const StyledButton = styled.button`
@@ -80,4 +80,9 @@ export const XButton = styled.button`
   padding: 2px;
   border-radius: 2px;
   align-self: center !important; //no idea why this is so wonky?
+`;
+
+export const StyledButtonContainer = styled.div`
+  bottom: 16px;
+  position: fixed;
 `;
