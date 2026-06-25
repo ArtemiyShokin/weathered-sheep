@@ -4,7 +4,7 @@ export const StyledHeading = styled.h1`
   margin: 16px 24px;
   color: var(--huemint3);
   text-transform: uppercase;
-  font-size: 2.25rem;
+  font-size: 3.1rem;
   line-height: 1.5;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 800;
@@ -38,11 +38,12 @@ export const StyledButton = styled.button`
 
 export const StyledWindowContainer = styled.div`
   margin: 16px;
-  width: 60rem;
+  max-height: 50vh;
+  width: fit-content;
 
   top: ${(props) => (props.$top === "center" ? "50vh" : "auto")};
 
-  background-color: var(--accent);
+  background-color: var(--huemint1-lighter);
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
@@ -50,10 +51,18 @@ export const StyledWindowContainer = styled.div`
 
   font-family: var(--roboto-font);
 
+  ul {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
+    max-height: 50vh;
+    width: max-content;
+  }
+
   button {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 24px;
   }
 `;
 
@@ -64,6 +73,7 @@ export const StyledListicle = styled.li`
   border-width: 8px;
   border-color: ${(props) => props.$color};
   padding-left: 8px;
+  width: 250px;
 `;
 
 export const StyledMenuBar = styled.div`

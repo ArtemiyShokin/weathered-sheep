@@ -7,7 +7,7 @@ export const StyledFormContainer = styled.div`
   top: 40vh;
   left: 40vw;
 
-  background-color: var(--accent);
+  background-color: var(--huemint1-lighter);
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
