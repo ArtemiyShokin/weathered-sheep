@@ -60,7 +60,7 @@ export default function App({ Component, pageProps }) {
   function handleFormSubmit(data) {
     const pickedColor = colors[Math.floor(Math.random() * colors.length)];
     setSheep((prevSheep) => {
-      if (prevSheep.length >= 6) return prevSheep;
+      if (prevSheep.length >= 9) return prevSheep;
       const [latitude, longitude] = randomPositionNoBounds();
       return [
         ...prevSheep,
@@ -87,9 +87,11 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleSheepDelete(sheepId) {
+    const sheepToDelete = sheep.find((oneSheep) => oneSheep.id === sheepId);
     setSheep((prevSheep) =>
       prevSheep.filter((oneSheep) => oneSheep.id !== sheepId)
     );
+    setColors([...colors, sheepToDelete.color]);
   }
 
   function handleSheepPositionUpdate(
@@ -133,13 +135,6 @@ export default function App({ Component, pageProps }) {
   }
   function handleSoundVersionToggle(version) {
     setSoundVersion(version);
-  }
-
-  function applyColorToNewSheep(sheepId) {
-    setColors((prev) => {});
-
-    //apply a random color to a sheep -> happens in the create sheep function
-    // remove the color from the state
   }
 
   return (
