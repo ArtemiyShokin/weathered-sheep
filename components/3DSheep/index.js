@@ -2,61 +2,12 @@ import { useRef, useMemo, useEffect } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
-import * as THREE from "three";
 import { latLngToVector3, randomDuration } from "@/utils/calculationFunctions";
 import wanderSheep from "@/utils/animateSheep/animateSheepUpdate";
 import { mp3Sound, synthSound } from "@/utils/sheepSound";
 import { earthRadius } from "../3DWorld";
 import { useAnimations } from "@react-three/drei";
-
-const _upAxis = new THREE.Vector3(0, 1, 0);
-const _surfaceNormal = new THREE.Vector3();
-const _forwardDirection = new THREE.Vector3();
-const _rightDirection = new THREE.Vector3();
-const _orientationMatrix = new THREE.Matrix4();
-
-function applyPosAndOrientation(
-  mesh,
-  positionX,
-  positionY,
-  positionZ,
-  latitude,
-  longitude,
-  latitudeVelocity,
-  longitudeVelocity
-) {
-  mesh.position.set(positionX, positionY, positionZ);
-  _surfaceNormal.set(positionX, positionY, positionZ).normalize();
-
-  const speed = Math.hypot(latitudeVelocity, longitudeVelocity);
-
-  if (speed > 1e-6) {
-    const epsilon = 1e-4;
-    const [probeX, probeY, probeZ] = latLngToVector3(
-      latitude + latitudeVelocity * epsilon,
-      longitude + longitudeVelocity * epsilon,
-      earthRadius
-    );
-    _forwardDirection.set(
-      probeX - positionX,
-      probeY - positionY,
-      probeZ - positionZ
-    );
-    _forwardDirection
-      .addScaledVector(_surfaceNormal, -_forwardDirection.dot(_surfaceNormal))
-      .normalize();
-    _rightDirection.crossVectors(_forwardDirection, _surfaceNormal);
-    _forwardDirection.negate();
-    _orientationMatrix.makeBasis(
-      _rightDirection,
-      _surfaceNormal,
-      _forwardDirection
-    );
-    mesh.quaternion.setFromRotationMatrix(_orientationMatrix);
-  } else {
-    mesh.quaternion.setFromUnitVectors(_upAxis, _surfaceNormal);
-  }
-}
+import { applyPosAndOrientation } from "@/utils/animateSheep/animateSheepUpdate";
 
 export default function Sheep({
   sheep,
@@ -146,7 +97,7 @@ export default function Sheep({
         nextEventRef.current = time + randomDuration(3, 6);
         if (walkActionRef.current) walkActionRef.current.paused = true;
 
-        // Abort any previous in-flight fetch before starting a new one.
+        // Abort any previous fetch before starting a new one
         if (abortControllerRef.current) abortControllerRef.current.abort();
         abortControllerRef.current = new AbortController();
         const { signal } = abortControllerRef.current;
