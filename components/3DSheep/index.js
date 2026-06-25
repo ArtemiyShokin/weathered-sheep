@@ -181,7 +181,7 @@ export default function Sheep({
 
   return (
     <group ref={meshRef}>
-      <Marker position={[0, 0.6, 0]} />
+      <Marker position={[0, 0.6, 0]} color={sheep.color} />
       <primitive object={scene} scale={0.1} />{" "}
     </group>
   );

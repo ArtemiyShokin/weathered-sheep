@@ -50,16 +50,20 @@ export const StyledWindowContainer = styled.div`
 
   font-family: var(--roboto-font);
 
-  li {
-    margin: 16px;
-    position: relative;
-  }
-
   button {
     position: absolute;
     top: 0;
     right: 0;
   }
+`;
+
+export const StyledListicle = styled.li`
+  margin: 16px 16px 16px 8px;
+  position: relative;
+  border-left: solid;
+  border-width: 8px;
+  border-color: ${(props) => props.$color};
+  padding-left: 8px;
 `;
 
 export const StyledMenuBar = styled.div`

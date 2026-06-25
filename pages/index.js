@@ -45,7 +45,7 @@ export default function HomePage({
         />
       )}
 
-      <StyledHeading>Welcome to the meadow__</StyledHeading>
+      <StyledHeading>the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
         <ThreeScene
