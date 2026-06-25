@@ -8,6 +8,7 @@ import { mp3Sound, synthSound } from "@/utils/sheepSound";
 import { earthRadius } from "../3DWorld";
 import { useAnimations } from "@react-three/drei";
 import { applyPosAndOrientation } from "@/utils/animateSheep/animateSheepUpdate";
+import Marker from "../3DMarker";
 
 export default function Sheep({
   sheep,
@@ -178,5 +179,10 @@ export default function Sheep({
     }
   });
 
-  return <primitive ref={meshRef} object={scene} scale={0.1} />;
+  return (
+    <group ref={meshRef}>
+      <Marker position={[0, 0.6, 0]} />
+      <primitive object={scene} scale={0.1} />{" "}
+    </group>
+  );
 }
