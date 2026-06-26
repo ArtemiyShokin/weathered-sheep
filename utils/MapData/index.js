@@ -3,7 +3,7 @@ export const bounds = [
   [-90, 180],
 ];
 
-export const initalColors = [
+export const initialColors = [
   "#EF4533",
   "#F2762C",
   "#FAF059",

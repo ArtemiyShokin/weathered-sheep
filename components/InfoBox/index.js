@@ -6,7 +6,6 @@ import {
   XButton,
   StyledListicle,
 } from "../Global/Global.styled";
-import { styledListItem } from "./InfoBox.styled";
 import DeletionPopup from "@/components/DeletionPopup";
 
 export default function InfoBox({ sheep, handleSheepDelete }) {

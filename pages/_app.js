@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
 import { randomPositionNoBounds } from "@/utils/calculationFunctions";
-import { initalColors } from "@/utils/MapData";
+import { initialColors } from "@/utils/MapData";
 
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [soundVersion, setSoundVersion] = useState("mp3");
-  const [colors, setColors] = useState(initalColors);
+  const [colors, setColors] = useLocalStorageState("colors", {
+    defaultValue: initialColors,
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -58,9 +60,9 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleFormSubmit(data) {
+    if (prevSheep.length >= 9) return;
     const pickedColor = colors[Math.floor(Math.random() * colors.length)];
     setSheep((prevSheep) => {
-      if (prevSheep.length >= 9) return prevSheep;
       const [latitude, longitude] = randomPositionNoBounds();
       return [
         ...prevSheep,
@@ -77,9 +79,10 @@ export default function App({ Component, pageProps }) {
         },
       ];
     });
-    setColors((prevColors) =>
-      prevColors.filter((color) => color !== pickedColor)
-    );
+    setColors((prevColors) => {
+      const index = prevColors.indexOf(pickedColor);
+      return prevColors.filter((color, colorIndex) => colorIndex !== index);
+    });
     setFormOpen(false);
   }
   function handleFormToggle() {
@@ -88,10 +91,11 @@ export default function App({ Component, pageProps }) {
 
   function handleSheepDelete(sheepId) {
     const sheepToDelete = sheep.find((oneSheep) => oneSheep.id === sheepId);
+    if (!sheepToDelete) return;
     setSheep((prevSheep) =>
       prevSheep.filter((oneSheep) => oneSheep.id !== sheepId)
     );
-    setColors([...colors, sheepToDelete.color]);
+    setColors((prev) => [...prev, sheepToDelete.color]);
   }
 
   function handleSheepPositionUpdate(
