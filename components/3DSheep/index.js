@@ -35,7 +35,7 @@ export default function Sheep({
     if (
       clickDestinationRef.current &&
       walkActionRef.current &&
-      walkActionRef.current
+      stateRef.current === "stopped"
     ) {
       walkActionRef.current.paused = false;
       stateRef.current = "wandering";
