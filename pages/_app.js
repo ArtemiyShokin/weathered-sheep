@@ -76,6 +76,7 @@ export default function App({ Component, pageProps }) {
           temperature: "_",
           wind: "_",
           humidity: "_",
+          active: false,
         },
       ];
     });
