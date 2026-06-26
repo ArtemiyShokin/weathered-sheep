@@ -3,8 +3,9 @@ import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { TrackballControls, Html, useProgress } from "@react-three/drei";
 import Sheep from "@/components/3DSheep";
 import { StyledCanvas } from "./3DWorld.styled";
-export const earthRadius = 2;
 import { vector3ToLatLng } from "@/utils/calculationFunctions";
+
+export const earthRadius = 2;
 
 function Loader() {
   const { progress } = useProgress();
