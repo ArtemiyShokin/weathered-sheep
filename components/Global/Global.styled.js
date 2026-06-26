@@ -75,7 +75,6 @@ export const StyledListicle = styled.li`
 
   border-left: 8px solid ${(props) => props.$color};
 
-  /* background-color: ${(props) => (props.$active ? props.$color : "none")}; */
   padding-left: 8px;
   width: 250px;
 `;
