@@ -172,9 +172,10 @@ export default function Sheep({
     );
 
     if (clickDestinationRef.current) {
-      const dLat = clickDestinationRef.current.lat - newLatitude;
-      const dLng = clickDestinationRef.current.lng - newLongitude;
-      if (Math.hypot(dLat, dLng) < 1) clickDestinationRef.current = null;
+      const destinationLat = clickDestinationRef.current.lat - newLatitude;
+      const destinationLng = clickDestinationRef.current.lng - newLongitude;
+      if (Math.hypot(destinationLat, destinationLng) < 1)
+        clickDestinationRef.current = null;
     }
 
     positionRef.current = [newLatitude, newLongitude];
