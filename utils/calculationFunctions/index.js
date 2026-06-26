@@ -11,6 +11,13 @@ export function latLngToVector3(lat, lng, radius) {
   return [x, y, z];
 }
 
+export function vector3ToLatLng(point, radius) {
+  const lat = 90 - Math.acos(point.y / radius) * (180 / Math.PI);
+  let lng = Math.atan2(point.z, -point.x) * (180 / Math.PI) - 180;
+  if (lng < -180) lng += 360;
+  return [lat, lng];
+}
+
 export function normalizeToPointDecimal(number) {
   if (number >= 200) {
     return number / 300;

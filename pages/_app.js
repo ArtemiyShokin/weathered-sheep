@@ -153,6 +153,11 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+  function handleSetAllSheepNotActive() {
+    setSheep((prevSheep) =>
+      prevSheep.map((oneSheep) => ({ ...oneSheep, active: false }))
+    );
+  }
 
   return (
     <>
@@ -170,6 +175,7 @@ export default function App({ Component, pageProps }) {
         onSoundVersionToggle={handleSoundVersionToggle}
         soundVersion={soundVersion}
         handleSetActive={handleSetActive}
+        handleSetAllSheepNotActive={handleSetAllSheepNotActive}
       />
     </>
   );
