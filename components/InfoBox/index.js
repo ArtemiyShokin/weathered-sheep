@@ -8,7 +8,7 @@ import {
 } from "../Global/Global.styled";
 import DeletionPopup from "@/components/DeletionPopup";
 
-export default function InfoBox({ sheep, handleSheepDelete }) {
+export default function InfoBox({ sheep, handleSheepDelete, onSetActive }) {
   const [sheepToDelete, setSheepToDelete] = useState(null);
   function handleConfirmationOpen(oneSheep) {
     setSheepToDelete(oneSheep);
@@ -33,13 +33,19 @@ export default function InfoBox({ sheep, handleSheepDelete }) {
         <StyledMenuBar />
         <ul>
           {sheep.map((oneSheep) => (
-            <StyledListicle key={oneSheep.id} $color={oneSheep.color}>
-              <h2>🐑 {oneSheep.name}</h2>
-              <p>lat: {oneSheep.infoPosition[0].toFixed(2)}</p>
-              <p>lng: {oneSheep.infoPosition[1].toFixed(2)} </p>
-              <p>temperature: {oneSheep.temperature}C</p>
-              <p>wind-speed: {oneSheep.wind}km/h</p>
-              <p>humidity: {oneSheep.humidity}%</p>
+            <StyledListicle
+              key={oneSheep.id}
+              $color={oneSheep.color}
+              $active={oneSheep.active}
+            >
+              <div onClick={() => onSetActive(oneSheep.id)}>
+                <h2>🐑 {oneSheep.name}</h2>
+                <p>lat: {oneSheep.infoPosition[0].toFixed(2)}</p>
+                <p>lng: {oneSheep.infoPosition[1].toFixed(2)} </p>
+                <p>temperature: {oneSheep.temperature}C</p>
+                <p>wind-speed: {oneSheep.wind}km/h</p>
+                <p>humidity: {oneSheep.humidity}%</p>
+              </div>
               <XButton
                 onClick={() => handleConfirmationOpen(oneSheep)}
                 aria-label={`Delete ${oneSheep.name}`}

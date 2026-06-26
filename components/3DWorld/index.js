@@ -1,9 +1,10 @@
-import React, { Suspense, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
-import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
+import React, { Suspense, useRef, useState } from "react";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { TrackballControls, Html, useProgress } from "@react-three/drei";
 import Sheep from "@/components/3DSheep";
 import { StyledCanvas } from "./3DWorld.styled";
+import { vector3ToLatLng } from "@/utils/calculationFunctions";
+
 export const earthRadius = 2;
 
 function Loader() {
@@ -28,10 +29,26 @@ export default function ThreeScene({
   handleSheepWeatherUpdate,
   sheepMovementActivated,
   soundVersion,
+  handleSetActive,
+  onSetAllSheepNotActive,
 }) {
+  const [clickDestination, setClickDestination] = useState(null);
+
+  function handleSheepClickPosition(event) {
+    const point = event.point;
+    const [lat, lng] = vector3ToLatLng(point, earthRadius);
+    const activeSheep = sheep.find((oneSheep) => oneSheep.active);
+    if (activeSheep) {
+      setClickDestination({ id: activeSheep.id, lat, lng });
+    }
+  }
+
   return (
-    <StyledCanvas>
+    <StyledCanvas onPointerMissed={onSetAllSheepNotActive}>
       <Suspense fallback={<Loader />}>
+        <EffectComposer>
+          <Bloom luminanceThreshold={1.2} intensity={0.5} />
+        </EffectComposer>
         <ambientLight intensity={Math.PI / 2} />
         <spotLight
           position={[10, 10, 10]}
@@ -41,7 +58,7 @@ export default function ThreeScene({
           intensity={Math.PI / 2}
         />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Earth />
+        <Earth onClick={handleSheepClickPosition} />
         {sheep.map((oneSheep) => {
           return (
             <Sheep
@@ -50,7 +67,11 @@ export default function ThreeScene({
               onSheepPositionUpdate={handleSheepPositionUpdate}
               onSheepWeatherUpdate={handleSheepWeatherUpdate}
               sheepMovementActivated={sheepMovementActivated}
+              onSetActive={handleSetActive}
               soundVersion={soundVersion}
+              clickDestination={
+                clickDestination?.id === oneSheep.id ? clickDestination : null
+              }
             />
           );
         })}

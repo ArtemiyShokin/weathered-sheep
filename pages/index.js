@@ -28,6 +28,8 @@ export default function HomePage({
   handleSheepPositionUpdate,
   handleSheepWeatherUpdate,
   onSoundVersionToggle,
+  handleSetActive,
+  handleSetAllSheepNotActive,
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -54,9 +56,15 @@ export default function HomePage({
           handleSheepWeatherUpdate={handleSheepWeatherUpdate}
           sheepMovementActivated={sheepMovementActivated}
           soundVersion={soundVersion}
+          handleSetActive={handleSetActive}
+          onSetAllSheepNotActive={handleSetAllSheepNotActive}
         />
 
-        <InfoBox sheep={sheep} handleSheepDelete={handleSheepDelete} />
+        <InfoBox
+          sheep={sheep}
+          handleSheepDelete={handleSheepDelete}
+          onSetActive={handleSetActive}
+        />
       </StyledHomePageContainer>
       <StyledButtonContainer>
         <StyledButton
@@ -65,7 +73,9 @@ export default function HomePage({
               Tone.start();
             }
             setSheepMovementActivated(!sheepMovementActivated);
-            console.log(Tone.context.state);
+            if (sheepMovementActivated) {
+              handleSetAllSheepNotActive();
+            }
           }}
         >
           {sheepMovementActivated ? "turn off movement" : "turn on movement"}

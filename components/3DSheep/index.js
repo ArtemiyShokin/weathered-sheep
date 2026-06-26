@@ -16,6 +16,8 @@ export default function Sheep({
   onSheepWeatherUpdate,
   sheepMovementActivated,
   soundVersion,
+  onSetActive,
+  clickDestination,
 }) {
   const model = useLoader(GLTFLoader, "/assets/models/DollySheep.glb");
   const scene = useMemo(() => clone(model.scene), [model.scene]);
@@ -26,6 +28,19 @@ export default function Sheep({
   const nextEventRef = useRef(null);
   const abortControllerRef = useRef(null);
   const frameCountRef = useRef(0);
+  const clickDestinationRef = useRef(null);
+
+  useEffect(() => {
+    clickDestinationRef.current = clickDestination;
+    if (
+      clickDestinationRef.current &&
+      walkActionRef.current &&
+      stateRef.current === "stopped"
+    ) {
+      walkActionRef.current.paused = false;
+      stateRef.current = "wandering";
+    }
+  }, [clickDestination]);
 
   const { actions } = useAnimations(model.animations, meshRef);
   const walkActionRef = useRef(null);
@@ -92,7 +107,7 @@ export default function Sheep({
       nextEventRef.current = time + randomDuration(2, 14);
     }
 
-    if (time >= nextEventRef.current) {
+    if (time >= nextEventRef.current && !clickDestinationRef.current) {
       if (stateRef.current === "wandering") {
         stateRef.current = "stopped";
         nextEventRef.current = time + randomDuration(3, 6);
@@ -147,13 +162,21 @@ export default function Sheep({
       }
     }
 
-    if (stateRef.current === "stopped") return;
+    if (stateRef.current === "stopped" && !clickDestinationRef.current) return;
 
     const { newLatitude, newLongitude, newVelocity } = wanderSheep(
       { position: positionRef.current, velocity: velocityRef.current },
       time,
-      seedRef.current
+      seedRef.current,
+      clickDestinationRef.current
     );
+
+    if (clickDestinationRef.current) {
+      const destinationLat = clickDestinationRef.current.lat - newLatitude;
+      const destinationLng = clickDestinationRef.current.lng - newLongitude;
+      if (Math.hypot(destinationLat, destinationLng) < 1)
+        clickDestinationRef.current = null;
+    }
 
     positionRef.current = [newLatitude, newLongitude];
     velocityRef.current = newVelocity;
@@ -180,8 +203,12 @@ export default function Sheep({
   });
 
   return (
-    <group ref={meshRef}>
-      <Marker position={[0, 0.6, 0]} color={sheep.color} />
+    <group ref={meshRef} onClick={() => onSetActive(sheep.id)}>
+      <Marker
+        position={sheep.active ? [0, 0.7, 0] : [0, 0.6, 0]}
+        color={sheep.color}
+        active={sheep.active}
+      />
       <primitive object={scene} scale={0.1} />{" "}
     </group>
   );

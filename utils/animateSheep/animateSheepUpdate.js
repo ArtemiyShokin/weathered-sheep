@@ -4,15 +4,28 @@ import { latLngToVector3 } from "../calculationFunctions";
 import { earthRadius } from "@/components/3DWorld";
 const noise = createNoise3D();
 
-export default function wanderSheep(sheep, time, seed) {
+export default function wanderSheep(sheep, time, seed, destination = null) {
   const speed = 0.1;
   const steeringStrength = 0.002;
   const maxVelocity = 0.05;
 
-  const latitudeSteering =
-    noise(seed[0] * 0.01, time * speed, 0) * steeringStrength;
-  const longitudeSteering =
-    noise(seed[1] * 0.01, 0, time * speed) * steeringStrength;
+  let latitudeSteering;
+  let longitudeSteering;
+
+  if (destination) {
+    let dLat = destination.lat - sheep.position[0];
+    let dLng = destination.lng - sheep.position[1];
+    if (dLng > 180) dLng -= 360;
+    if (dLng < -180) dLng += 360;
+    const dist = Math.hypot(dLat, dLng);
+    latitudeSteering = (dLat / dist) * steeringStrength * 5;
+    longitudeSteering = (dLng / dist) * steeringStrength * 5;
+  } else {
+    latitudeSteering =
+      noise(seed[0] * 0.01, time * speed, 0) * steeringStrength;
+    longitudeSteering =
+      noise(seed[1] * 0.01, 0, time * speed) * steeringStrength;
+  }
 
   // Change existing velocity
   let latitudeVelocity = sheep.velocity[0] + latitudeSteering;
@@ -56,6 +69,7 @@ const _surfaceNormal = new THREE.Vector3();
 const _forwardDirection = new THREE.Vector3();
 const _rightDirection = new THREE.Vector3();
 const _orientationMatrix = new THREE.Matrix4();
+
 export function applyPosAndOrientation(
   mesh,
   positionX,
