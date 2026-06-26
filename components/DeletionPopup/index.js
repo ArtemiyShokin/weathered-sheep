@@ -10,7 +10,7 @@ export default function DeletionPopup({
   return (
     <StyledPopupContainer>
       <StyledMenuBar>
-        <XButton onClick={onConfirmationToggle}>
+        <XButton onClick={onConfirmationToggle} $xButton>
           <XIcon width="10px" height="8px" fill="var(--huemint4)" />
         </XButton>
       </StyledMenuBar>

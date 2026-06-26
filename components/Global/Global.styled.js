@@ -61,8 +61,8 @@ export const StyledWindowContainer = styled.div`
 
   button {
     position: absolute;
-    top: 0;
-    right: 24px;
+    top: 8px;
+    right: 8px;
   }
 `;
 
@@ -75,7 +75,7 @@ export const StyledListicle = styled.li`
 
   border-left: 8px solid ${(props) => props.$color};
 
-  padding-left: 8px;
+  padding: 8px;
   width: 250px;
 `;
 
@@ -96,6 +96,7 @@ export const XButton = styled.button`
   padding: 2px;
   border-radius: 2px;
   align-self: center !important; //no idea why this is so wonky?
+  margin-bottom: 0 !important;
 `;
 
 export const StyledButtonContainer = styled.div`
