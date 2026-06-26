@@ -4,6 +4,7 @@ import {
   StyledWindowContainer,
   StyledMenuBar,
   XButton,
+  StyledListicle,
 } from "../Global/Global.styled";
 import DeletionPopup from "@/components/DeletionPopup";
 
@@ -32,7 +33,7 @@ export default function InfoBox({ sheep, handleSheepDelete }) {
         <StyledMenuBar />
         <ul>
           {sheep.map((oneSheep) => (
-            <li key={oneSheep.id}>
+            <StyledListicle key={oneSheep.id} $color={oneSheep.color}>
               <h2>🐑 {oneSheep.name}</h2>
               <p>lat: {oneSheep.infoPosition[0].toFixed(2)}</p>
               <p>lng: {oneSheep.infoPosition[1].toFixed(2)} </p>
@@ -45,7 +46,7 @@ export default function InfoBox({ sheep, handleSheepDelete }) {
               >
                 <XIcon width="10px" height="8px" fill="var(--huemint4)" />{" "}
               </XButton>
-            </li>
+            </StyledListicle>
           ))}
         </ul>
       </StyledWindowContainer>

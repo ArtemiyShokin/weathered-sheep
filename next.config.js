@@ -6,6 +6,9 @@ const nextConfig = {
   reactStrictMode: true,
 
   webpack(config) {
+    config.ignoreWarnings = [
+      { module: /three\/examples\/jsm\/physics\/(JoltPhysics|RapierPhysics)\.js/ },
+    ];
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.(".svg")
