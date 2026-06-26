@@ -70,10 +70,12 @@ export const StyledListicle = styled.li`
   margin: 16px 16px 16px 8px;
   position: relative;
 
-  /* border: 2px solid ${(props) => (props.$active ? props.$color : "none")}; */
+  border: 2px solid ${(props) => (props.$active ? props.$color : "transparent")};
+  border-radius: 4px;
+
   border-left: 8px solid ${(props) => props.$color};
 
-  background-color: ${(props) => (props.$active ? props.$color : "none")};
+  /* background-color: ${(props) => (props.$active ? props.$color : "none")}; */
   padding-left: 8px;
   width: 250px;
 `;
