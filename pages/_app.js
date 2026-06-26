@@ -29,6 +29,7 @@ export default function App({ Component, pageProps }) {
         temperature: "_",
         wind: "_",
         humidity: "_",
+        active: false,
       },
       {
         id: "2",
@@ -40,6 +41,7 @@ export default function App({ Component, pageProps }) {
         temperature: "_",
         wind: "_",
         humidity: "_",
+        active: false,
       },
       {
         id: "3",
@@ -51,6 +53,7 @@ export default function App({ Component, pageProps }) {
         temperature: "_",
         wind: "_",
         humidity: "_",
+        active: false,
       },
     ],
   });
