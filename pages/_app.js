@@ -9,14 +9,14 @@ export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [soundVersion, setSoundVersion] = useState("mp3");
-  const [colors, setColors] = useLocalStorageState("colors", {
-    defaultValue: initialColors,
-  });
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const [colors, setColors] = useLocalStorageState("colors", {
+    defaultValue: initialColors,
+  });
   const [sheep, setSheep] = useLocalStorageState("sheep", {
     defaultValue: [
       {
@@ -60,7 +60,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleFormSubmit(data) {
-    if (prevSheep.length >= 9) return;
+    if (sheep.length >= 9) return;
     const pickedColor = colors[Math.floor(Math.random() * colors.length)];
     setSheep((prevSheep) => {
       const [latitude, longitude] = randomPositionNoBounds();
@@ -141,6 +141,19 @@ export default function App({ Component, pageProps }) {
     setSoundVersion(version);
   }
 
+  function handleSetActive(sheepId) {
+    setSheep((prevSheep) =>
+      prevSheep.map((oneSheep) =>
+        oneSheep.id === sheepId
+          ? {
+              ...oneSheep,
+              active: true,
+            }
+          : { ...oneSheep, active: false }
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -156,6 +169,7 @@ export default function App({ Component, pageProps }) {
         handleSheepDelete={handleSheepDelete}
         onSoundVersionToggle={handleSoundVersionToggle}
         soundVersion={soundVersion}
+        handleSetActive={handleSetActive}
       />
     </>
   );

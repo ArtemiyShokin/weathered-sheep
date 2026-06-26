@@ -1,5 +1,6 @@
 import React, { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
 import { TrackballControls, Html, useProgress } from "@react-three/drei";
 import Sheep from "@/components/3DSheep";
@@ -28,10 +29,14 @@ export default function ThreeScene({
   handleSheepWeatherUpdate,
   sheepMovementActivated,
   soundVersion,
+  handleSetActive,
 }) {
   return (
     <StyledCanvas>
       <Suspense fallback={<Loader />}>
+        <EffectComposer>
+          <Bloom luminanceThreshold={1} intensity={0.2} />
+        </EffectComposer>
         <ambientLight intensity={Math.PI / 2} />
         <spotLight
           position={[10, 10, 10]}
@@ -50,6 +55,7 @@ export default function ThreeScene({
               onSheepPositionUpdate={handleSheepPositionUpdate}
               onSheepWeatherUpdate={handleSheepWeatherUpdate}
               sheepMovementActivated={sheepMovementActivated}
+              onSetActive={handleSetActive}
               soundVersion={soundVersion}
             />
           );

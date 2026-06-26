@@ -16,6 +16,7 @@ export default function Sheep({
   onSheepWeatherUpdate,
   sheepMovementActivated,
   soundVersion,
+  onSetActive,
 }) {
   const model = useLoader(GLTFLoader, "/assets/models/DollySheep.glb");
   const scene = useMemo(() => clone(model.scene), [model.scene]);
@@ -180,8 +181,12 @@ export default function Sheep({
   });
 
   return (
-    <group ref={meshRef}>
-      <Marker position={[0, 0.6, 0]} color={sheep.color} />
+    <group ref={meshRef} onClick={() => onSetActive(sheep.id)}>
+      <Marker
+        position={sheep.active ? [0, 0.7, 0] : [0, 0.6, 0]}
+        color={sheep.color}
+        active={sheep.active}
+      />
       <primitive object={scene} scale={0.1} />{" "}
     </group>
   );

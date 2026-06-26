@@ -69,9 +69,11 @@ export const StyledWindowContainer = styled.div`
 export const StyledListicle = styled.li`
   margin: 16px 16px 16px 8px;
   position: relative;
-  border-left: solid;
-  border-width: 8px;
-  border-color: ${(props) => props.$color};
+
+  /* border: 2px solid ${(props) => (props.$active ? props.$color : "none")}; */
+  border-left: 8px solid ${(props) => props.$color};
+
+  background-color: ${(props) => (props.$active ? props.$color : "none")};
   padding-left: 8px;
   width: 250px;
 `;
@@ -83,7 +85,6 @@ export const StyledMenuBar = styled.div`
   z-index: 100;
   display: flex;
   flex-direction: row-reverse;
-  /* align-items: center; */
 `;
 
 export const XButton = styled.button`
