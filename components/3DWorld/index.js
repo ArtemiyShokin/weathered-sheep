@@ -35,7 +35,7 @@ export default function ThreeScene({
     <StyledCanvas>
       <Suspense fallback={<Loader />}>
         <EffectComposer>
-          <Bloom luminanceThreshold={1} intensity={0.2} />
+          <Bloom luminanceThreshold={1.2} intensity={0.5} />
         </EffectComposer>
         <ambientLight intensity={Math.PI / 2} />
         <spotLight
