@@ -1,5 +1,5 @@
 import XIcon from "@/assets/x.svg";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
   StyledWindowContainer,
   StyledMenuBar,
