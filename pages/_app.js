@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: "2",
-        position: [90, 0],
+        position: [40, 50],
         color: "#FFBD34",
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: "3",
-        position: [0, 40],
+        position: [20, 30],
         color: "#85C87B",
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],

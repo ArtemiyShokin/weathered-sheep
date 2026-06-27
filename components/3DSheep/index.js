@@ -50,6 +50,9 @@ export default function Sheep({
   const sheepMovementActivatedRef = useRef(sheepMovementActivated);
   sheepMovementActivatedRef.current = sheepMovementActivated;
 
+  const soundVersionRef = useRef(soundVersion);
+  soundVersionRef.current = soundVersion;
+
   function syncPause() {
     if (walkActionRef.current) {
       walkActionRef.current.paused =
@@ -121,6 +124,12 @@ export default function Sheep({
         const [latitude, longitude] = positionRef.current;
         (async () => {
           try {
+            // Stagger fetches across sheep so concurrent stops don't burst the API
+            await new Promise((resolve, reject) => {
+              const t = setTimeout(resolve, Math.random() * 1500);
+              signal.addEventListener("abort", () => { clearTimeout(t); reject(new DOMException("Aborted", "AbortError")); });
+            });
+            if (signal.aborted) return;
             const response = await fetch(
               `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`,
               { signal }
@@ -130,24 +139,29 @@ export default function Sheep({
               return;
             }
             const weather = await response.json();
-            onSheepWeatherUpdate(
-              sheep.id,
-              weather.current.temperature_2m,
-              weather.current.wind_speed_10m,
-              weather.current.relative_humidity_2m
-            );
-            if (soundVersion === "mp3") {
-              mp3Sound(
-                weather.current.relative_humidity_2m,
-                weather.current.wind_speed_10m,
-                weather.current.temperature_2m
-              );
+            const temp = weather.current.temperature_2m;
+            const wind = weather.current.wind_speed_10m;
+            const humidity = weather.current.relative_humidity_2m;
+
+            if (
+              !Number.isFinite(temp) ||
+              !Number.isFinite(wind) ||
+              !Number.isFinite(humidity)
+            ) {
+              console.error("Weather data invalid or missing for this location");
+              return;
+            }
+
+            onSheepWeatherUpdate(sheep.id, temp, wind, humidity);
+
+            if (soundVersionRef.current === "mp3") {
+              mp3Sound(humidity, wind, temp).catch((e) => {
+                console.error("mp3Sound error:", e);
+              });
             } else {
-              synthSound(
-                weather.current.relative_humidity_2m,
-                weather.current.wind_speed_10m,
-                weather.current.temperature_2m
-              );
+              synthSound(humidity, wind, temp).catch((e) => {
+                console.error("synthSound error:", e);
+              });
             }
           } catch (error) {
             if (error.name !== "AbortError") {

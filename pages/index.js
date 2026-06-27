@@ -1,13 +1,15 @@
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyledHeading,
   StyledHomePageContainer,
   StyledButton,
   StyledButtonContainer,
+  StyledCanvasContainer,
 } from "@/components/Global/Global.styled";
 
 import * as Tone from "tone";
+import { resetAudio } from "@/utils/sheepSound";
 
 import ThreeScene from "@/components/3DWorld";
 import InfoBox from "@/components/InfoBox";
@@ -33,13 +35,28 @@ export default function HomePage({
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
+
+  useEffect(() => {
+    const unlock = () => Tone.start();
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") Tone.start();
+    };
+    document.addEventListener("click", unlock);
+    document.addEventListener("keydown", unlock);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("keydown", unlock);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, []);
   function handleSoundToggle() {
     muted ? (Tone.Destination.mute = false) : (Tone.Destination.mute = true);
     setMuted(!muted);
   }
 
   return (
-    <div>
+    <>
       {formOpen && (
         <AddSheepForm
           onFormSubmit={handleFormSubmit}
@@ -50,16 +67,6 @@ export default function HomePage({
       <StyledHeading>the meadow__</StyledHeading>
 
       <StyledHomePageContainer>
-        <ThreeScene
-          sheep={sheep}
-          handleSheepPositionUpdate={handleSheepPositionUpdate}
-          handleSheepWeatherUpdate={handleSheepWeatherUpdate}
-          sheepMovementActivated={sheepMovementActivated}
-          soundVersion={soundVersion}
-          handleSetActive={handleSetActive}
-          onSetAllSheepNotActive={handleSetAllSheepNotActive}
-        />
-
         <InfoBox
           sheep={sheep}
           handleSheepDelete={handleSheepDelete}
@@ -69,9 +76,7 @@ export default function HomePage({
       <StyledButtonContainer>
         <StyledButton
           onClick={() => {
-            if (Tone.context.state !== "running") {
-              Tone.start();
-            }
+            Tone.start();
             setSheepMovementActivated(!sheepMovementActivated);
             if (sheepMovementActivated) {
               handleSetAllSheepNotActive();
@@ -82,6 +87,14 @@ export default function HomePage({
         </StyledButton>
         <StyledButton onClick={handleSoundToggle}>
           {muted ? "enable sound" : "disable sound"}
+        </StyledButton>
+        <StyledButton
+          onClick={() => {
+            resetAudio();
+            Tone.start();
+          }}
+        >
+          reset sound
         </StyledButton>
         <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
           add sheep
@@ -99,12 +112,23 @@ export default function HomePage({
           sound: synth
         </StyledButton>
       </StyledButtonContainer>
+      <StyledCanvasContainer>
+        <ThreeScene
+          sheep={sheep}
+          handleSheepPositionUpdate={handleSheepPositionUpdate}
+          handleSheepWeatherUpdate={handleSheepWeatherUpdate}
+          sheepMovementActivated={sheepMovementActivated}
+          soundVersion={soundVersion}
+          handleSetActive={handleSetActive}
+          onSetAllSheepNotActive={handleSetAllSheepNotActive}
+        />
+      </StyledCanvasContainer>
 
       {/* <Map
         sheep={sheep}
         setSheep={setSheep}
         sheepMovementActivated={sheepMovementActivated}
       /> */}
-    </div>
+    </>
   );
 }

@@ -1,0 +1,12 @@
+[     313ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///./node_modules/react-dom/cjs/react-dom.development.js:29834
+[     358ms] [LOG] [HMR] connected @ webpack-internal:///./node_modules/next/dist/client/dev/error-overlay/websocket.js:47
+[    1459ms] [LOG] %c * Tone.js v15.5.17 *  background: #000; color: #fff @ webpack-internal:///./node_modules/tone/build/esm/core/Global.js:83
+[    2305ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ webpack-internal:///./node_modules/three/build/three.core.js:2447
+[  203593ms] [LOG] [Fast Refresh] rebuilding @ :8
+[  205096ms] [LOG] [Fast Refresh] done in 1503ms @ :8
+[  211159ms] [LOG] [Fast Refresh] rebuilding @ :8
+[  212901ms] [LOG] [Fast Refresh] done in 1741ms @ :8
+[  223633ms] [LOG] [Fast Refresh] rebuilding @ :8
+[  225254ms] [LOG] [Fast Refresh] done in 1622ms @ :8
+[ 1101160ms] [LOG] [Fast Refresh] rebuilding @ :8
+[ 1102876ms] [LOG] [Fast Refresh] done in 1716ms @ :8

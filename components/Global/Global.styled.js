@@ -8,12 +8,18 @@ export const StyledHeading = styled.h1`
   line-height: 1.5;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 800;
+  z-index: 20;
+  position: fixed;
 `;
 
 export const StyledHomePageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 80vh;
+  z-index: 20;
+  position: fixed;
+  right: 24px;
+  top: calc(16px + 3.1rem * 1.5);
 `;
 
 export const StyledButton = styled.button`
@@ -38,7 +44,7 @@ export const StyledButton = styled.button`
 
 export const StyledWindowContainer = styled.div`
   margin: 16px;
-  max-height: 50vh;
+  max-height: 55vh;
   width: fit-content;
 
   top: ${(props) => (props.$top === "center" ? "50vh" : "auto")};
@@ -50,6 +56,8 @@ export const StyledWindowContainer = styled.div`
   border-color: var(--huemint4);
 
   font-family: var(--roboto-font);
+
+  overflow: auto;
 
   ul {
     display: grid;
@@ -102,4 +110,13 @@ export const XButton = styled.button`
 export const StyledButtonContainer = styled.div`
   bottom: 16px;
   position: fixed;
+  z-index: 20;
+`;
+
+export const StyledCanvasContainer = styled.div`
+  width: 70vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
