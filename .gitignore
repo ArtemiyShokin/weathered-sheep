@@ -40,4 +40,9 @@ next-env.d.ts
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+.playwright-mcp/
+playwright.config.js
+
+# Claude Code
+CLAUDE.md
 .github
