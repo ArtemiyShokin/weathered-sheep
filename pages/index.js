@@ -18,6 +18,7 @@ import InfoBox from "@/components/InfoBox";
 import AddSheepForm from "@/components/AddSheepForm";
 
 import { mp3Sound, synthSound } from "@/utils/sheepSound";
+import { newSynthSound } from "@/utils/sheepSound/sheepSoundRemake";
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <p>A map is loading</p>,
@@ -132,10 +133,10 @@ export default function HomePage({
           add sheep
         </StyledButton>
         <StyledButton onClick={() => mp3Sound(80, 70, 25)}>
-          test synth
-        </StyledButton>
-        <StyledButton onClick={() => synthSound(0, 70, -40)}>
           test mp3
+        </StyledButton>
+        <StyledButton onClick={() => newSynthSound(0, 70, -40)}>
+          test synth
         </StyledButton>
 
         <StyledButton
