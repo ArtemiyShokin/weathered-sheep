@@ -114,8 +114,8 @@ export const XButton = styled.button`
 
 export const StyledMapPosition = styled.div`
   position: fixed;
-  bottom: 48px;
-  left: 24px;
+  bottom: 56px;
+  left: 0px;
   z-index: 20;
 `;
 
