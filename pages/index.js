@@ -17,7 +17,6 @@ import ThreeScene from "@/components/3DWorld";
 import InfoBox from "@/components/InfoBox";
 import AddSheepForm from "@/components/AddSheepForm";
 
-import { mp3Sound, synthSound } from "@/utils/sheepSound/olderversion";
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <p>A map is loading</p>,
@@ -131,26 +130,26 @@ export default function HomePage({
         <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
           add sheep
         </StyledButton>
-        <StyledButton onClick={() => mp3Sound(80, 70, 25)}>
+        {/* <StyledButton onClick={() => mp3Sound(80, 70, 25)}>
           test mp3
         </StyledButton>
         <StyledButton onClick={() => synthSound(0, 70, -40)}>
           test synth
-        </StyledButton>
+        </StyledButton> */}
 
         <StyledButton
           className="soundButton"
           onClick={() => onSoundVersionToggle("mp3")}
           disabled={soundVersion === "mp3" && true}
         >
-          sound: mp3
+          bleat: organic
         </StyledButton>
         <StyledButton
           className="soundButton"
           onClick={() => onSoundVersionToggle("synth")}
           disabled={soundVersion === "synth" && true}
         >
-          sound: synth
+          bleat: synth
         </StyledButton>
       </StyledButtonContainerLow>
       <StyledCanvasContainer>

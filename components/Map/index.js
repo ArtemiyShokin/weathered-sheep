@@ -56,7 +56,10 @@ export default function Map({
             eventHandlers={{ click: () => onSetActive(oneSheep.id) }}
           />
         ))}
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          attribution=' <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
         <MapEventsHandler handleMapClick={handleMapClick} />
       </StyledMapContainer>
