@@ -1,10 +1,11 @@
 import styled from "styled-components";
 export const StyledPopupContainer = styled.div`
-  position: absolute;
-  margin: 16px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 400px;
-  top: 40vh;
-  left: 40vw;
+  height: 100px;
 
   background-color: var(--huemint1-lighter);
   border-radius: 2px;
@@ -19,7 +20,7 @@ export const StyledPopupContainer = styled.div`
   }
 
   button {
-    align-self: flex-end;
+    align-self: center;
     margin-bottom: 8px;
   }
   z-index: 1000;

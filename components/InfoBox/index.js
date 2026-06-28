@@ -8,7 +8,7 @@ import {
 } from "../Global/Global.styled";
 import DeletionPopup from "@/components/DeletionPopup";
 
-export default function InfoBox({ sheep, handleSheepDelete, onSetActive }) {
+export default function InfoBox({ sheep, handleSheepDelete, onSetActive, onInfoBoxToggle }) {
   const [sheepToDelete, setSheepToDelete] = useState(null);
   function handleConfirmationOpen(oneSheep) {
     setSheepToDelete(oneSheep);
@@ -30,7 +30,11 @@ export default function InfoBox({ sheep, handleSheepDelete, onSetActive }) {
         />
       )}
       <StyledWindowContainer>
-        <StyledMenuBar />
+        <StyledMenuBar>
+          <XButton onClick={onInfoBoxToggle}>
+            <XIcon width="10px" height="8px" fill="var(--huemint4)" />
+          </XButton>
+        </StyledMenuBar>
         <ul>
           {sheep.map((oneSheep) => (
             <StyledListicle
@@ -47,6 +51,7 @@ export default function InfoBox({ sheep, handleSheepDelete, onSetActive }) {
                 <p>humidity: {oneSheep.humidity}%</p>
               </div>
               <XButton
+                className="cardButton"
                 onClick={() => handleConfirmationOpen(oneSheep)}
                 aria-label={`Delete ${oneSheep.name}`}
               >

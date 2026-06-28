@@ -8,12 +8,18 @@ export const StyledHeading = styled.h1`
   line-height: 1.5;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 800;
+  z-index: 20;
+  position: fixed;
 `;
 
 export const StyledHomePageContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   height: 80vh;
+  z-index: 20;
+  position: fixed;
+  right: 24px;
+  top: calc(16px + 3.1rem * 1.5);
 `;
 
 export const StyledButton = styled.button`
@@ -38,7 +44,7 @@ export const StyledButton = styled.button`
 
 export const StyledWindowContainer = styled.div`
   margin: 16px;
-  max-height: 50vh;
+  max-height: 55vh;
   width: fit-content;
 
   top: ${(props) => (props.$top === "center" ? "50vh" : "auto")};
@@ -51,6 +57,8 @@ export const StyledWindowContainer = styled.div`
 
   font-family: var(--roboto-font);
 
+  overflow: auto;
+
   ul {
     display: grid;
     grid-auto-flow: column;
@@ -59,7 +67,7 @@ export const StyledWindowContainer = styled.div`
     width: max-content;
   }
 
-  button {
+  .cardButton {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -82,24 +90,52 @@ export const StyledListicle = styled.li`
 export const StyledMenuBar = styled.div`
   margin: 0;
   background-color: var(--huemint4);
-  height: 16px;
+  height: 24px;
   z-index: 100;
   display: flex;
   flex-direction: row-reverse;
+
+  position: relative;
 `;
 
 export const XButton = styled.button`
-  line-height: 1;
+  position: absolute;
+  /* line-height: 1; */
   background-color: var(--huemint4-lighter);
   display: flex;
-
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   padding: 2px;
   border-radius: 2px;
-  align-self: center !important; //no idea why this is so wonky?
-  margin-bottom: 0 !important;
+  /* align-self: center !important; //no idea why this is so wonky? */
+  /* margin-bottom: 0 !important; */
 `;
 
-export const StyledButtonContainer = styled.div`
+export const StyledMapPosition = styled.div`
+  position: fixed;
+  bottom: 56px;
+  left: 0px;
+  z-index: 20;
+`;
+
+export const StyledButtonContainerLow = styled.div`
   bottom: 16px;
   position: fixed;
+  z-index: 20;
+`;
+
+export const StyledButtonContainerUp = styled.div`
+  top: 32px;
+  right: 40px;
+  position: fixed;
+  z-index: 20;
+`;
+
+export const StyledCanvasContainer = styled.div`
+  width: 70vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;

@@ -8,6 +8,8 @@ import { initialColors } from "@/utils/MapData";
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [infoBoxOpen, setInfoBoxOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   const [soundVersion, setSoundVersion] = useState("mp3");
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: "2",
-        position: [90, 0],
+        position: [40, 50],
         color: "#FFBD34",
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
@@ -45,7 +47,7 @@ export default function App({ Component, pageProps }) {
       },
       {
         id: "3",
-        position: [0, 40],
+        position: [20, 30],
         color: "#85C87B",
         infoPosition: [0, 0],
         velocity: [0.1, 0.1],
@@ -91,6 +93,12 @@ export default function App({ Component, pageProps }) {
   }
   function handleFormToggle() {
     setFormOpen(!formOpen);
+  }
+  function handleInfoBoxToggle() {
+    setInfoBoxOpen(!infoBoxOpen);
+  }
+  function handleMapToggle() {
+    setMapOpen(!mapOpen);
   }
 
   function handleSheepDelete(sheepId) {
@@ -175,6 +183,10 @@ export default function App({ Component, pageProps }) {
         handleFormSubmit={handleFormSubmit}
         formOpen={formOpen}
         onFormToggle={handleFormToggle}
+        infoBoxOpen={infoBoxOpen}
+        onInfoBoxToggle={handleInfoBoxToggle}
+        mapOpen={mapOpen}
+        onMapToggle={handleMapToggle}
         handleSheepDelete={handleSheepDelete}
         onSoundVersionToggle={handleSoundVersionToggle}
         soundVersion={soundVersion}

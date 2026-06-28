@@ -7,6 +7,8 @@ export const StyledFormContainer = styled.div`
   top: 40vh;
   left: 40vw;
 
+  background-color: var(--huemint1-lighter);
+
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
@@ -14,10 +16,11 @@ export const StyledFormContainer = styled.div`
 
   font-family: var(--roboto-font);
 
+  z-index: 1000;
+
   button {
     align-self: flex-end;
   }
-  z-index: 1000;
 `;
 
 export const StyledForm = styled.form`

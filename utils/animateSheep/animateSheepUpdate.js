@@ -48,8 +48,10 @@ export default function wanderSheep(sheep, time, seed, destination = null) {
 
   let newLongitude = sheep.position[1] + longitudeVelocity;
 
-  // Clamp latitude and reflect velocity so sheep bounce off the poles
-  const clampedLatitude = Math.max(-90, Math.min(90, newLatitude));
+  // Clamp latitude and reflect velocity. Hard limit at ±75 to avoid the pole
+  // singularity where all longitudes map to the same 3D point and the sheep's
+  // orientation matrix becomes degenerate.
+  const clampedLatitude = Math.max(-75, Math.min(75, newLatitude));
   if (clampedLatitude !== newLatitude) latitudeVelocity = -latitudeVelocity;
 
   // Wrap longitude
