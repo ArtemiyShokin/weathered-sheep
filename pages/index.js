@@ -140,12 +140,14 @@ export default function HomePage({
         </StyledButton>
 
         <StyledButton
+          className="soundButton"
           onClick={() => onSoundVersionToggle("mp3")}
           disabled={soundVersion === "mp3" && true}
         >
           sound: mp3
         </StyledButton>
         <StyledButton
+          className="soundButton"
           onClick={() => onSoundVersionToggle("synth")}
           disabled={soundVersion === "synth" && true}
         >

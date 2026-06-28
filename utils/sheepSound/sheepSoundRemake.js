@@ -25,6 +25,26 @@ function windToNoteDuration(wind) {
   return 0.2 + normalized * 2.3;
 }
 
+let sampler, mVibrato, mAutoFilter, mLimiter;
+let mp3Ready = null;
+
+function buildMp3Chain() {
+  if (!mp3Ready) {
+    mVibrato = new Tone.Vibrato({ frequency: 4, depth: 0 });
+    mAutoFilter = new Tone.AutoFilter({ frequency: 1, depth: 0 }).start();
+    mLimiter = new Tone.Limiter(-3);
+    sampler = new Tone.Sampler({
+      urls: { C1: "/assets/sound-assets/sheep-sound-1.mp3" },
+    });
+    sampler.connect(mVibrato);
+    mVibrato.connect(mAutoFilter);
+    mAutoFilter.connect(mLimiter);
+    mLimiter.toDestination();
+    mp3Ready = Tone.loaded();
+  }
+  return mp3Ready;
+}
+
 let synth, sVibrato, sAutoFilter, sLimiter;
 let synthReady = null;
 
@@ -47,6 +67,15 @@ function buildSynthChain() {
 }
 
 export function resetAudio() {
+  [sampler, mVibrato, mAutoFilter, mLimiter].forEach((node) => {
+    if (node)
+      try {
+        node.dispose();
+      } catch (e) {}
+  });
+  sampler = mVibrato = mAutoFilter = mLimiter = null;
+  mp3Ready = null;
+
   [synth, sVibrato, sAutoFilter, sLimiter].forEach((node) => {
     if (node)
       try {
@@ -60,19 +89,21 @@ export function resetAudio() {
 const melodies = [
   [
     ["C4", 0],
-    ["E4", 0.3],
     ["G4", 0.6],
   ],
   [
     ["A3", 0],
-    ["C4", 0.3],
     ["E4", 0.6],
   ],
   [
     ["G3", 0],
-    ["B3", 0.3],
     ["D4", 0.6],
   ],
+  [
+    ["E4", 0.3],
+    ["C4", 0.3],
+  ],
+  [["B3", 0.3], [("C4", 0.3)]],
 ];
 
 export async function newSynthSound(humidity, wind, temperature) {

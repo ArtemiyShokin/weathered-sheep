@@ -40,6 +40,10 @@ export const StyledButton = styled.button`
   &:disabled {
     background-color: grey;
   }
+
+  .soundButton&:disabled {
+    background-color: lightgreen;
+  }
 `;
 
 export const StyledWindowContainer = styled.div`
@@ -100,7 +104,7 @@ export const StyledMenuBar = styled.div`
 
 export const XButton = styled.button`
   position: absolute;
-  /* line-height: 1; */
+  line-height: 1;
   background-color: var(--huemint4-lighter);
   display: flex;
   right: 8px;
@@ -108,8 +112,6 @@ export const XButton = styled.button`
   transform: translateY(-50%);
   padding: 2px;
   border-radius: 2px;
-  /* align-self: center !important; //no idea why this is so wonky? */
-  /* margin-bottom: 0 !important; */
 `;
 
 export const StyledMapPosition = styled.div`

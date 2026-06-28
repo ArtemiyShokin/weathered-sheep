@@ -5,6 +5,7 @@ import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { latLngToVector3, randomDuration } from "@/utils/calculationFunctions";
 import wanderSheep from "@/utils/animateSheep/animateSheepUpdate";
 import { mp3Sound, synthSound } from "@/utils/sheepSound";
+import { newSynthSound } from "@/utils/sheepSound/sheepSoundRemake";
 import { earthRadius } from "../3DWorld";
 import { useAnimations } from "@react-three/drei";
 import { applyPosAndOrientation } from "@/utils/animateSheep/animateSheepUpdate";
@@ -127,7 +128,10 @@ export default function Sheep({
             // Stagger fetches across sheep so concurrent stops don't burst the API
             await new Promise((resolve, reject) => {
               const t = setTimeout(resolve, Math.random() * 1500);
-              signal.addEventListener("abort", () => { clearTimeout(t); reject(new DOMException("Aborted", "AbortError")); });
+              signal.addEventListener("abort", () => {
+                clearTimeout(t);
+                reject(new DOMException("Aborted", "AbortError"));
+              });
             });
             const response = await fetch(
               `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`,
@@ -147,7 +151,9 @@ export default function Sheep({
               !Number.isFinite(wind) ||
               !Number.isFinite(humidity)
             ) {
-              console.error("Weather data invalid or missing for this location");
+              console.error(
+                "Weather data invalid or missing for this location"
+              );
               return;
             }
 
@@ -158,7 +164,7 @@ export default function Sheep({
                 console.error("mp3Sound error:", e);
               });
             } else {
-              synthSound(humidity, wind, temp).catch((e) => {
+              newSynthSound(humidity, wind, temp).catch((e) => {
                 console.error("synthSound error:", e);
               });
             }
