@@ -4,8 +4,7 @@ import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { latLngToVector3, randomDuration } from "@/utils/calculationFunctions";
 import wanderSheep from "@/utils/animateSheep/animateSheepUpdate";
-import { mp3Sound, synthSound } from "@/utils/sheepSound";
-import { newSynthSound } from "@/utils/sheepSound/sheepSoundRemake";
+import { mp3Sound, synthSound } from "@/utils/sheepSound/olderversion";
 import { earthRadius } from "../3DWorld";
 import { useAnimations } from "@react-three/drei";
 import { applyPosAndOrientation } from "@/utils/animateSheep/animateSheepUpdate";
@@ -164,7 +163,7 @@ export default function Sheep({
                 console.error("mp3Sound error:", e);
               });
             } else {
-              newSynthSound(humidity, wind, temp).catch((e) => {
+              synthSound(humidity, wind, temp).catch((e) => {
                 console.error("synthSound error:", e);
               });
             }

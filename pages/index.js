@@ -11,14 +11,13 @@ import {
 } from "@/components/Global/Global.styled";
 
 import * as Tone from "tone";
-import { resetAudio } from "@/utils/sheepSound";
+import { resetAudio } from "@/utils/sheepSound/olderversion";
 
 import ThreeScene from "@/components/3DWorld";
 import InfoBox from "@/components/InfoBox";
 import AddSheepForm from "@/components/AddSheepForm";
 
-import { mp3Sound, synthSound } from "@/utils/sheepSound";
-import { newSynthSound } from "@/utils/sheepSound/sheepSoundRemake";
+import { mp3Sound, synthSound } from "@/utils/sheepSound/olderversion";
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <p>A map is loading</p>,
@@ -135,7 +134,7 @@ export default function HomePage({
         <StyledButton onClick={() => mp3Sound(80, 70, 25)}>
           test mp3
         </StyledButton>
-        <StyledButton onClick={() => newSynthSound(0, 70, -40)}>
+        <StyledButton onClick={() => synthSound(0, 70, -40)}>
           test synth
         </StyledButton>
 
