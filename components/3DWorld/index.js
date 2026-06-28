@@ -17,8 +17,8 @@ function Earth(props) {
 
   return (
     <mesh {...props} ref={meshRef} scale="1">
-      <sphereGeometry args={[earthRadius, 18, 18]} />
-      <meshStandardMaterial color={"orange"} wireframe />
+      <sphereGeometry args={[earthRadius, 16, 16]} />
+      <meshStandardMaterial color={"#f9ca63"} wireframe />
     </mesh>
   );
 }

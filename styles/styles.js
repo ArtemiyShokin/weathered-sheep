@@ -17,15 +17,6 @@ const GlobalStyle = createGlobalStyle`
   color: var(--huemint2);
 
   /* COLORS */
-  /* --hero: #90EE90; */
-  /* --accent: #404744; */
-  /* --support: #0d0f0e; */
-
-  /* --huemint1: #0d0f0e;
-  --huemint2: #66cb1d;
-  --huemint3: #009d01;
-  --huemint4: #e95947;
-  --huemint4-lighter: hsl(7, 79%, 80%); */
 
   --huemint1: #1e2238;
   --huemint2: #f9ca63;

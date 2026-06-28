@@ -8,8 +8,8 @@ import { initialColors } from "@/utils/MapData";
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
-  const [infoBoxOpen, setInfoBoxOpen] = useState(true);
-  const [mapOpen, setMapOpen] = useState(true);
+  const [infoBoxOpen, setInfoBoxOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   const [soundVersion, setSoundVersion] = useState("mp3");
 
   useEffect(() => {
