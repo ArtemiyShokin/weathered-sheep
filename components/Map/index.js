@@ -3,9 +3,13 @@ import { useRef, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { Marker, TileLayer, ImageOverlay } from "react-leaflet";
-
+import XIcon from "@/assets/x.svg";
 import { StyledMapContainer } from "./Map.styled";
-import { StyledWindowContainer, StyledMenuBar } from "../Global/Global.styled";
+import {
+  StyledWindowContainer,
+  StyledMenuBar,
+  XButton,
+} from "../Global/Global.styled";
 import MapEventsHandler from "@/utils/MapEventsHandler";
 import animateSheep from "@/utils/animateSheep";
 import { randomPositionInBounds } from "@/utils/calculationFunctions";
@@ -13,7 +17,12 @@ import { bounds } from "@/utils/MapData";
 import { randomDuration } from "@/utils/calculationFunctions";
 const zoom = 1;
 
-export default function Map({ sheep, setSheep, sheepMovementActivated }) {
+export default function Map({
+  sheep,
+  setSheep,
+  sheepMovementActivated,
+  onMapToggle,
+}) {
   const sheepRef = useRef(sheep);
   const animationRefs = useRef({});
 
@@ -77,14 +86,22 @@ export default function Map({ sheep, setSheep, sheepMovementActivated }) {
 
   return (
     <StyledWindowContainer>
-      <StyledMenuBar />
+      <StyledMenuBar>
+        <XButton onClick={onMapToggle}>
+          <XIcon width="10px" height="8px" fill="var(--huemint4)" />
+        </XButton>
+      </StyledMenuBar>
       <StyledMapContainer
         center={[50, 30]}
         zoom={zoom}
-        // maxZoom={zoom}
-        minZoom={2}
+        minZoom={1}
         dragging={true}
         zoomControl={true}
+        maxBounds={[
+          [-90, -180],
+          [90, 180],
+        ]}
+        maxBoundsViscosity={1.0}
       >
         {/* <ImageOverlay
           url="/assets/image-assets/greengrass.jpg"

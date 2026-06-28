@@ -4,8 +4,10 @@ import {
   StyledHeading,
   StyledHomePageContainer,
   StyledButton,
-  StyledButtonContainer,
+  StyledButtonContainerLow,
+  StyledButtonContainerUp,
   StyledCanvasContainer,
+  StyledMapPosition,
 } from "@/components/Global/Global.styled";
 
 import * as Tone from "tone";
@@ -25,6 +27,10 @@ export default function HomePage({
   setSheep,
   formOpen,
   onFormToggle,
+  infoBoxOpen,
+  onInfoBoxToggle,
+  mapOpen,
+  onMapToggle,
   handleFormSubmit,
   handleSheepDelete,
   handleSheepPositionUpdate,
@@ -65,15 +71,36 @@ export default function HomePage({
       )}
 
       <StyledHeading>the meadow__</StyledHeading>
+      <StyledButtonContainerUp>
+        <StyledButton onClick={onInfoBoxToggle}>
+          {infoBoxOpen ? "hide info" : "show info"}{" "}
+        </StyledButton>
+        <StyledButton onClick={onMapToggle}>
+          {mapOpen ? "hide map" : "show map"}{" "}
+        </StyledButton>
+      </StyledButtonContainerUp>
 
       <StyledHomePageContainer>
-        <InfoBox
-          sheep={sheep}
-          handleSheepDelete={handleSheepDelete}
-          onSetActive={handleSetActive}
-        />
+        {infoBoxOpen && (
+          <InfoBox
+            sheep={sheep}
+            handleSheepDelete={handleSheepDelete}
+            onSetActive={handleSetActive}
+            onInfoBoxToggle={onInfoBoxToggle}
+          />
+        )}
       </StyledHomePageContainer>
-      <StyledButtonContainer>
+      {mapOpen && (
+        <StyledMapPosition>
+          <Map
+            sheep={sheep}
+            setSheep={setSheep}
+            sheepMovementActivated={sheepMovementActivated}
+            onMapToggle={onMapToggle}
+          />
+        </StyledMapPosition>
+      )}
+      <StyledButtonContainerLow>
         <StyledButton
           onClick={() => {
             Tone.start();
@@ -99,6 +126,7 @@ export default function HomePage({
         <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
           add sheep
         </StyledButton>
+
         <StyledButton
           onClick={() => onSoundVersionToggle("mp3")}
           disabled={soundVersion === "mp3" && true}
@@ -111,7 +139,7 @@ export default function HomePage({
         >
           sound: synth
         </StyledButton>
-      </StyledButtonContainer>
+      </StyledButtonContainerLow>
       <StyledCanvasContainer>
         <ThreeScene
           sheep={sheep}
@@ -123,12 +151,6 @@ export default function HomePage({
           onSetAllSheepNotActive={handleSetAllSheepNotActive}
         />
       </StyledCanvasContainer>
-
-      {/* <Map
-        sheep={sheep}
-        setSheep={setSheep}
-        sheepMovementActivated={sheepMovementActivated}
-      /> */}
     </>
   );
 }

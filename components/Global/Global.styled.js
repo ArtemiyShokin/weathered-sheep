@@ -14,7 +14,7 @@ export const StyledHeading = styled.h1`
 
 export const StyledHomePageContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   height: 80vh;
   z-index: 20;
   position: fixed;
@@ -67,7 +67,7 @@ export const StyledWindowContainer = styled.div`
     width: max-content;
   }
 
-  button {
+  .cardButton {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -90,25 +90,44 @@ export const StyledListicle = styled.li`
 export const StyledMenuBar = styled.div`
   margin: 0;
   background-color: var(--huemint4);
-  height: 16px;
+  height: 24px;
   z-index: 100;
   display: flex;
   flex-direction: row-reverse;
+
+  position: relative;
 `;
 
 export const XButton = styled.button`
-  line-height: 1;
+  position: absolute;
+  /* line-height: 1; */
   background-color: var(--huemint4-lighter);
   display: flex;
-
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   padding: 2px;
   border-radius: 2px;
-  align-self: center !important; //no idea why this is so wonky?
-  margin-bottom: 0 !important;
+  /* align-self: center !important; //no idea why this is so wonky? */
+  /* margin-bottom: 0 !important; */
 `;
 
-export const StyledButtonContainer = styled.div`
+export const StyledMapPosition = styled.div`
+  position: fixed;
+  bottom: 48px;
+  left: 24px;
+  z-index: 20;
+`;
+
+export const StyledButtonContainerLow = styled.div`
   bottom: 16px;
+  position: fixed;
+  z-index: 20;
+`;
+
+export const StyledButtonContainerUp = styled.div`
+  top: 32px;
+  right: 40px;
   position: fixed;
   z-index: 20;
 `;

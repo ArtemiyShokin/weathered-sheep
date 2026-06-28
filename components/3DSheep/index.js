@@ -129,7 +129,6 @@ export default function Sheep({
               const t = setTimeout(resolve, Math.random() * 1500);
               signal.addEventListener("abort", () => { clearTimeout(t); reject(new DOMException("Aborted", "AbortError")); });
             });
-            if (signal.aborted) return;
             const response = await fetch(
               `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`,
               { signal }

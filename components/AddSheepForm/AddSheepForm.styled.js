@@ -16,10 +16,11 @@ export const StyledFormContainer = styled.div`
 
   font-family: var(--roboto-font);
 
+  z-index: 1000;
+
   button {
     align-self: flex-end;
   }
-  z-index: 1000;
 `;
 
 export const StyledForm = styled.form`

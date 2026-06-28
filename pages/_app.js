@@ -8,6 +8,8 @@ import { initialColors } from "@/utils/MapData";
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [infoBoxOpen, setInfoBoxOpen] = useState(true);
+  const [mapOpen, setMapOpen] = useState(true);
   const [soundVersion, setSoundVersion] = useState("mp3");
 
   useEffect(() => {
@@ -92,6 +94,12 @@ export default function App({ Component, pageProps }) {
   function handleFormToggle() {
     setFormOpen(!formOpen);
   }
+  function handleInfoBoxToggle() {
+    setInfoBoxOpen(!infoBoxOpen);
+  }
+  function handleMapToggle() {
+    setMapOpen(!mapOpen);
+  }
 
   function handleSheepDelete(sheepId) {
     const sheepToDelete = sheep.find((oneSheep) => oneSheep.id === sheepId);
@@ -175,6 +183,10 @@ export default function App({ Component, pageProps }) {
         handleFormSubmit={handleFormSubmit}
         formOpen={formOpen}
         onFormToggle={handleFormToggle}
+        infoBoxOpen={infoBoxOpen}
+        onInfoBoxToggle={handleInfoBoxToggle}
+        mapOpen={mapOpen}
+        onMapToggle={handleMapToggle}
         handleSheepDelete={handleSheepDelete}
         onSoundVersionToggle={handleSoundVersionToggle}
         soundVersion={soundVersion}
