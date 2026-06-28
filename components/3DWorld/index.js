@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef } from "react";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { TrackballControls, Html, useProgress } from "@react-three/drei";
 import Sheep from "@/components/3DSheep";
@@ -31,15 +31,15 @@ export default function ThreeScene({
   soundVersion,
   handleSetActive,
   onSetAllSheepNotActive,
+  clickDestination,
+  onSetClickDestination,
 }) {
-  const [clickDestination, setClickDestination] = useState(null);
-
   function handleSheepClickPosition(event) {
     const point = event.point;
     const [lat, lng] = vector3ToLatLng(point, earthRadius);
     const activeSheep = sheep.find((oneSheep) => oneSheep.active);
     if (activeSheep) {
-      setClickDestination({ id: activeSheep.id, lat, lng });
+      onSetClickDestination({ id: activeSheep.id, lat, lng });
     }
   }
 

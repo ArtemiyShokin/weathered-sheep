@@ -41,6 +41,7 @@ export default function HomePage({
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [clickDestination, setClickDestination] = useState(null);
 
   useEffect(() => {
     const unlock = () => Tone.start();
@@ -97,6 +98,8 @@ export default function HomePage({
             setSheep={setSheep}
             sheepMovementActivated={sheepMovementActivated}
             onMapToggle={onMapToggle}
+            onSetActive={handleSetActive}
+            onSetClickDestination={setClickDestination}
           />
         </StyledMapPosition>
       )}
@@ -149,6 +152,8 @@ export default function HomePage({
           soundVersion={soundVersion}
           handleSetActive={handleSetActive}
           onSetAllSheepNotActive={handleSetAllSheepNotActive}
+          clickDestination={clickDestination}
+          onSetClickDestination={setClickDestination}
         />
       </StyledCanvasContainer>
     </>
