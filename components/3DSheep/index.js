@@ -127,7 +127,10 @@ export default function Sheep({
             // Stagger fetches across sheep so concurrent stops don't burst the API
             await new Promise((resolve, reject) => {
               const t = setTimeout(resolve, Math.random() * 1500);
-              signal.addEventListener("abort", () => { clearTimeout(t); reject(new DOMException("Aborted", "AbortError")); });
+              signal.addEventListener("abort", () => {
+                clearTimeout(t);
+                reject(new DOMException("Aborted", "AbortError"));
+              });
             });
             const response = await fetch(
               `/api/open-meteo?latitude=${latitude}&longitude=${longitude}`,
@@ -147,7 +150,9 @@ export default function Sheep({
               !Number.isFinite(wind) ||
               !Number.isFinite(humidity)
             ) {
-              console.error("Weather data invalid or missing for this location");
+              console.error(
+                "Weather data invalid or missing for this location"
+              );
               return;
             }
 

@@ -40,6 +40,10 @@ export const StyledButton = styled.button`
   &:disabled {
     background-color: grey;
   }
+
+  .soundButton&:disabled {
+    background-color: lightgreen;
+  }
 `;
 
 export const StyledWindowContainer = styled.div`
@@ -100,7 +104,7 @@ export const StyledMenuBar = styled.div`
 
 export const XButton = styled.button`
   position: absolute;
-  /* line-height: 1; */
+  line-height: 1;
   background-color: var(--huemint4-lighter);
   display: flex;
   right: 8px;
@@ -108,8 +112,6 @@ export const XButton = styled.button`
   transform: translateY(-50%);
   padding: 2px;
   border-radius: 2px;
-  /* align-self: center !important; //no idea why this is so wonky? */
-  /* margin-bottom: 0 !important; */
 `;
 
 export const StyledMapPosition = styled.div`
@@ -138,4 +140,21 @@ export const StyledCanvasContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+`;
+
+export const StyledArticle = styled.article`
+  color: var(--huemint3);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  overflow-wrap: normal;
+
+  p {
+    font-family: var(--roboto-font);
+    font-size: 14px;
+  }
+  ul {
+    list-style: square;
+  }
 `;

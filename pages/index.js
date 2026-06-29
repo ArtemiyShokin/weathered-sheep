@@ -8,14 +8,16 @@ import {
   StyledButtonContainerUp,
   StyledCanvasContainer,
   StyledMapPosition,
+  StyledArticle,
 } from "@/components/Global/Global.styled";
 
 import * as Tone from "tone";
-import { resetAudio } from "@/utils/sheepSound";
+import { resetAudio } from "@/utils/sheepSound/olderversion";
 
 import ThreeScene from "@/components/3DWorld";
 import InfoBox from "@/components/InfoBox";
 import AddSheepForm from "@/components/AddSheepForm";
+
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <p>A map is loading</p>,
@@ -79,6 +81,9 @@ export default function HomePage({
         <StyledButton onClick={onMapToggle}>
           {mapOpen ? "hide map" : "show map"}{" "}
         </StyledButton>
+        <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
+          add sheep
+        </StyledButton>
       </StyledButtonContainerUp>
 
       <StyledHomePageContainer>
@@ -90,6 +95,31 @@ export default function HomePage({
             onInfoBoxToggle={onInfoBoxToggle}
           />
         )}
+        <StyledArticle>
+          <h2> controls:</h2>
+          <ul>
+            <li>
+              <p>use the mouse to rotate and pan around the globe</p>{" "}
+            </li>
+            <li>
+              <p>use the clickwheel to zoom</p>{" "}
+            </li>
+            <li>
+              <p>click on a sheep to select it</p>{" "}
+            </li>
+            <li>
+              <p>
+                click anywhere on the globe to send the selected sheep there
+              </p>
+            </li>{" "}
+            <li>
+              <p>
+                if the weather sounds become overwhelming, feel free to disable
+                the audio
+              </p>
+            </li>
+          </ul>
+        </StyledArticle>
       </StyledHomePageContainer>
       {mapOpen && (
         <StyledMapPosition>
@@ -126,21 +156,20 @@ export default function HomePage({
         >
           reset sound
         </StyledButton>
-        <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
-          add sheep
-        </StyledButton>
 
         <StyledButton
+          className="soundButton"
           onClick={() => onSoundVersionToggle("mp3")}
           disabled={soundVersion === "mp3" && true}
         >
-          sound: mp3
+          bleat: organic
         </StyledButton>
         <StyledButton
+          className="soundButton"
           onClick={() => onSoundVersionToggle("synth")}
           disabled={soundVersion === "synth" && true}
         >
-          sound: synth
+          bleat: synth
         </StyledButton>
       </StyledButtonContainerLow>
       <StyledCanvasContainer>

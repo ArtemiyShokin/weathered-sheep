@@ -49,14 +49,17 @@ export default function Map({
             center={oneSheep.position}
             radius={oneSheep.active ? 16 : 8}
             pathOptions={{
-              color: oneSheep.color,
+              color: "transparent",
               fillColor: oneSheep.color,
-              fillOpacity: 0.6,
+              fillOpacity: 0.8,
             }}
             eventHandlers={{ click: () => onSetActive(oneSheep.id) }}
           />
         ))}
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          attribution=' <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
         <MapEventsHandler handleMapClick={handleMapClick} />
       </StyledMapContainer>
