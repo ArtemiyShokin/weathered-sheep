@@ -141,3 +141,20 @@ export const StyledCanvasContainer = styled.div`
   top: 0;
   left: 0;
 `;
+
+export const StyledArticle = styled.article`
+  color: var(--huemint3);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  overflow-wrap: normal;
+
+  p {
+    font-family: var(--roboto-font);
+    font-size: 14px;
+  }
+  ul {
+    list-style: square;
+  }
+`;

@@ -8,6 +8,7 @@ import {
   StyledButtonContainerUp,
   StyledCanvasContainer,
   StyledMapPosition,
+  StyledArticle,
 } from "@/components/Global/Global.styled";
 
 import * as Tone from "tone";
@@ -91,6 +92,31 @@ export default function HomePage({
             onInfoBoxToggle={onInfoBoxToggle}
           />
         )}
+        <StyledArticle>
+          <h2> controls:</h2>
+          <ul>
+            <li>
+              <p>use the mouse to rotate and pan around the globe</p>{" "}
+            </li>
+            <li>
+              <p>use the clickwheel to zoom</p>{" "}
+            </li>
+            <li>
+              <p>click on a sheep to select it</p>{" "}
+            </li>
+            <li>
+              <p>
+                click anywhere on the globe to send the selected sheep there
+              </p>
+            </li>{" "}
+            <li>
+              <p>
+                if the weather sounds become overwhelming, feel free to disable
+                the audio
+              </p>
+            </li>
+          </ul>
+        </StyledArticle>
       </StyledHomePageContainer>
       {mapOpen && (
         <StyledMapPosition>

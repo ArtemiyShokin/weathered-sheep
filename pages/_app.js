@@ -4,6 +4,7 @@ import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
 import { randomPositionNoBounds } from "@/utils/calculationFunctions";
 import { initialColors } from "@/utils/MapData";
+import { mp3Sound } from "@/utils/sheepSound";
 
 export default function App({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
@@ -154,6 +155,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleSetActive(sheepId) {
+    const selectedSheep = sheep.find((oneSheep) => oneSheep.id === sheepId);
     setSheep((prevSheep) =>
       prevSheep.map((oneSheep) =>
         oneSheep.id === sheepId
@@ -164,6 +166,13 @@ export default function App({ Component, pageProps }) {
           : { ...oneSheep, active: false }
       )
     );
+    mp3Sound(
+      selectedSheep.humidity,
+      selectedSheep.wind,
+      selectedSheep.temperature
+    ).catch((e) => {
+      console.error("mp3Sound error:", e);
+    });
   }
   function handleSetAllSheepNotActive() {
     setSheep((prevSheep) =>
