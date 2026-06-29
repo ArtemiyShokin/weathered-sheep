@@ -81,6 +81,9 @@ export default function HomePage({
         <StyledButton onClick={onMapToggle}>
           {mapOpen ? "hide map" : "show map"}{" "}
         </StyledButton>
+        <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
+          add sheep
+        </StyledButton>
       </StyledButtonContainerUp>
 
       <StyledHomePageContainer>
@@ -153,15 +156,6 @@ export default function HomePage({
         >
           reset sound
         </StyledButton>
-        <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
-          add sheep
-        </StyledButton>
-        {/* <StyledButton onClick={() => mp3Sound(80, 70, 25)}>
-          test mp3
-        </StyledButton>
-        <StyledButton onClick={() => synthSound(0, 70, -40)}>
-          test synth
-        </StyledButton> */}
 
         <StyledButton
           className="soundButton"
