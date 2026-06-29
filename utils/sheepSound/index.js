@@ -1,7 +1,6 @@
 import * as Tone from "tone";
 
 function tempToSemitones(temperature) {
-  // cold = high pitch, hot = low pitch; -90°C → +16, +57°C → -16
   const normalized = (temperature + 90) / (90 + 57);
   return Math.round(-(normalized * 32 - 16));
 }
@@ -15,12 +14,10 @@ function humidityToFilterDepth(humidity) {
 }
 
 function humidityToFilterRate(humidity) {
-  // 0% → 1Hz, 100% → 6Hz
   return 1 + Math.min(humidity / 100, 1.0) * 5;
 }
 
 function windToNoteDuration(wind) {
-  // 0 m/s → 0.2s, 50 m/s → 2.5s
   const normalized = Math.min(wind / 50, 1.0);
   return 0.2 + normalized * 2.3;
 }
@@ -86,27 +83,39 @@ export function resetAudio() {
   synthReady = null;
 }
 
+// const melodies = [
+//   [
+//     ["C4", 0],
+//     ["G4", 0.6],
+//   ],
+//   [
+//     ["A3", 0],
+//     ["E4", 0.6],
+//   ],
+//   [
+//     ["G3", 0],
+//     ["D4", 0.6],
+//   ],
+//   [
+//     ["E4", 0.3],
+//     ["C4", 0.3],
+//   ],
+//   [
+//     ["B3", 0.3],
+//     ["C4", 0.3],
+//   ],
+// ];
+
 const melodies = [
-  [
-    ["C4", 0],
-    ["G4", 0.6],
-  ],
-  [
-    ["A3", 0],
-    ["E4", 0.6],
-  ],
-  [
-    ["G3", 0],
-    ["D4", 0.6],
-  ],
-  [
-    ["E4", 0.3],
-    ["C4", 0.3],
-  ],
-  [
-    ["B3", 0.3],
-    ["C4", 0.3],
-  ],
+  [["A2", 0]],
+  [["D3", 0]],
+  [["F3", 0]],
+  [["A3", 0]],
+  [["C4", 0]],
+  [["D4", 0]],
+  [["F4", 0]],
+  [["C5", 0]],
+  [["A4", 0]],
 ];
 
 export async function mp3Sound(humidity, wind, temperature) {

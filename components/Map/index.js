@@ -49,9 +49,9 @@ export default function Map({
             center={oneSheep.position}
             radius={oneSheep.active ? 16 : 8}
             pathOptions={{
-              color: oneSheep.color,
+              color: "transparent",
               fillColor: oneSheep.color,
-              fillOpacity: 0.6,
+              fillOpacity: 0.8,
             }}
             eventHandlers={{ click: () => onSetActive(oneSheep.id) }}
           />

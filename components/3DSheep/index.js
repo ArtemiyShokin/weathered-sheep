@@ -4,7 +4,7 @@ import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { latLngToVector3, randomDuration } from "@/utils/calculationFunctions";
 import wanderSheep from "@/utils/animateSheep/animateSheepUpdate";
-import { mp3Sound, synthSound } from "@/utils/sheepSound/olderversion";
+import { mp3Sound, synthSound } from "@/utils/sheepSound";
 import { earthRadius } from "../3DWorld";
 import { useAnimations } from "@react-three/drei";
 import { applyPosAndOrientation } from "@/utils/animateSheep/animateSheepUpdate";
