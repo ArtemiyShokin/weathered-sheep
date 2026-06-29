@@ -5,8 +5,7 @@ export const StyledPopupContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  height: 100px;
-
+  margin: 16px;
   background-color: var(--huemint1-lighter);
   border-radius: 2px;
   border-style: solid;
@@ -16,12 +15,13 @@ export const StyledPopupContainer = styled.div`
   font-family: var(--roboto-font);
 
   p {
-    margin: 8px;
+    padding: 16px;
+    padding-bottom: 0;
   }
 
-  button {
-    align-self: center;
-    margin-bottom: 8px;
+  .button {
+    align-self: flex-end;
+    margin: 16px;
   }
   z-index: 1000;
 `;

@@ -40,6 +40,8 @@ export default function HomePage({
   onSoundVersionToggle,
   handleSetActive,
   handleSetAllSheepNotActive,
+  isWireframe,
+  onToggleWireframe,
 }) {
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -171,6 +173,9 @@ export default function HomePage({
         >
           bleat: synth
         </StyledButton>
+        <StyledButton onClick={onToggleWireframe}>
+          {isWireframe ? "toggle earth" : "toggle wireframe"}
+        </StyledButton>
       </StyledButtonContainerLow>
       <StyledCanvasContainer>
         <ThreeScene
@@ -183,6 +188,7 @@ export default function HomePage({
           onSetAllSheepNotActive={handleSetAllSheepNotActive}
           clickDestination={clickDestination}
           onSetClickDestination={setClickDestination}
+          isWireframe={isWireframe}
         />
       </StyledCanvasContainer>
     </>

@@ -14,9 +14,15 @@ export default function DeletionPopup({
           <XIcon width="10px" height="8px" fill="var(--huemint4)" />
         </XButton>
       </StyledMenuBar>
-      <p> Are you sure you want to remove {sheepToDelete.name}</p>
-      <StyledButton onClick={onConfirmationToggle}> cancel </StyledButton>
-      <StyledButton onClick={onSheepDelete}> remove</StyledButton>
+      <p> Are you sure you want to remove {sheepToDelete.name}?</p>
+      <StyledButton className="button" onClick={onConfirmationToggle}>
+        {" "}
+        cancel{" "}
+      </StyledButton>
+      <StyledButton className="button" onClick={onSheepDelete}>
+        {" "}
+        remove
+      </StyledButton>
     </StyledPopupContainer>
   );
 }

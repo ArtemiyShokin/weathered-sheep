@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
   const [infoBoxOpen, setInfoBoxOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [soundVersion, setSoundVersion] = useState("mp3");
+  const [isWireframe, setIsWireframe] = useState(true);
 
   useEffect(() => {
     setMounted(true);
@@ -180,6 +181,10 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleToggleWireframe() {
+    setIsWireframe(!isWireframe);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -201,6 +206,8 @@ export default function App({ Component, pageProps }) {
         soundVersion={soundVersion}
         handleSetActive={handleSetActive}
         handleSetAllSheepNotActive={handleSetAllSheepNotActive}
+        isWireframe={isWireframe}
+        onToggleWireframe={handleToggleWireframe}
       />
     </>
   );

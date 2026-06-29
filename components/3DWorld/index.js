@@ -1,6 +1,11 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import { TrackballControls, Html, useProgress } from "@react-three/drei";
+import {
+  TrackballControls,
+  Html,
+  useProgress,
+  useTexture,
+} from "@react-three/drei";
 import Sheep from "@/components/3DSheep";
 import { StyledCanvas } from "./3DWorld.styled";
 import { vector3ToLatLng } from "@/utils/calculationFunctions";
@@ -12,17 +17,24 @@ function Loader() {
   return <Html center>{progress} % loaded</Html>;
 }
 
-function Earth(props) {
+function Earth({ isWireframe, ...props }) {
   const meshRef = useRef(null);
+  const texture = useTexture("/assets/image-assets/earth-day-map.jpg");
 
   return (
-    <mesh {...props} ref={meshRef} scale="1">
-      <sphereGeometry args={[earthRadius, 16, 16]} />
-      <meshStandardMaterial color={"#f9ca63"} wireframe />
+    <mesh {...props} ref={meshRef}>
+      <sphereGeometry
+        args={isWireframe ? [earthRadius, 16, 16] : [earthRadius, 32, 32]}
+      />
+      <meshStandardMaterial
+        key={isWireframe ? "wireframe" : "textured"}
+        map={isWireframe ? null : texture}
+        color={isWireframe ? "#f9ca63" : "#fceac6"}
+        wireframe={isWireframe}
+      />
     </mesh>
   );
 }
-
 export default function ThreeScene({
   sheep,
   handleSheepPositionUpdate,
@@ -33,6 +45,7 @@ export default function ThreeScene({
   onSetAllSheepNotActive,
   clickDestination,
   onSetClickDestination,
+  isWireframe,
 }) {
   function handleSheepClickPosition(event) {
     const point = event.point;
@@ -58,7 +71,7 @@ export default function ThreeScene({
           intensity={Math.PI / 2}
         />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Earth onClick={handleSheepClickPosition} />
+        <Earth onClick={handleSheepClickPosition} isWireframe={isWireframe} />
         {sheep.map((oneSheep) => {
           return (
             <Sheep
