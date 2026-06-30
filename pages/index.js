@@ -154,6 +154,7 @@ export default function HomePage({
                 the audio
               </p>
             </li>
+            <li> weather data provided by open-meteo.com/ </li>{" "}
           </ul>
         </StyledArticle>
       </StyledHomePageContainer>
