@@ -153,9 +153,9 @@ export default function HomePage({
                 if the weather sounds become overwhelming, feel free to disable
                 the audio
               </p>
-            </li>
-            <li> weather data provided by open-meteo.com/ </li>{" "}
+            </li>{" "}
           </ul>
+          <p> weather data provided by open-meteo.com/ </p>
         </StyledArticle>
       </StyledHomePageContainer>
       {mapOpen && (
