@@ -88,7 +88,9 @@ export default function HomePage({
           onFormToggle={onFormToggle}
         />
       )}
-      {rateLimitPopupOpen && <RateLimitPopup onDismiss={() => setRateLimitPopupOpen(false)} />}
+      {rateLimitPopupOpen && (
+        <RateLimitPopup onDismiss={() => setRateLimitPopupOpen(false)} />
+      )}
       <StyledHeading>the meadow__</StyledHeading>
       <StyledButtonContainerUp>
         <StyledButton onClick={onInfoBoxToggle}>
@@ -114,9 +116,19 @@ export default function HomePage({
         <StyledArticle>
           <h2> controls:</h2>
           {rateLimitError && (
-            <p>weather data unavailable — daily API limit reached. try again tomorrow!</p>
+            <p>
+              weather data unavailable — daily API limit reached. try again
+              tomorrow!
+            </p>
           )}
           <ul>
+            <li>
+              <p>
+                the sheep wander around the globe when you turn on movement and
+                stop periodically to produce sounds depending on the current
+                weather in that location
+              </p>{" "}
+            </li>
             <li>
               <p>use the mouse to rotate and pan around the globe</p>{" "}
             </li>
@@ -130,7 +142,12 @@ export default function HomePage({
               <p>
                 click anywhere on the globe to send the selected sheep there
               </p>
-            </li>{" "}
+            </li>
+            <li>
+              <p>
+                use the buttons to add sheep, toggle info and change sounds
+              </p>{" "}
+            </li>
             <li>
               <p>
                 if the weather sounds become overwhelming, feel free to disable
