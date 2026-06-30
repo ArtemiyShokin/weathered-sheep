@@ -17,6 +17,7 @@ import { resetAudio } from "@/utils/sheepSound/olderversion";
 import ThreeScene from "@/components/3DWorld";
 import InfoBox from "@/components/InfoBox";
 import AddSheepForm from "@/components/AddSheepForm";
+import RateLimitPopup from "@/components/RateLimitPopup";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -46,6 +47,19 @@ export default function HomePage({
   const [sheepMovementActivated, setSheepMovementActivated] = useState(false);
   const [muted, setMuted] = useState(false);
   const [clickDestination, setClickDestination] = useState(null);
+  const [rateLimitError, setRateLimitError] = useState(false);
+  const [rateLimitPopupOpen, setRateLimitPopupOpen] = useState(false);
+
+  function handleRateLimitError() {
+    setRateLimitError(true);
+    setRateLimitPopupOpen(true);
+  }
+
+  function handleSheepWeatherSuccess(sheepId, temp, wind, humidity) {
+    handleSheepWeatherUpdate(sheepId, temp, wind, humidity);
+    setRateLimitError(false);
+    setRateLimitPopupOpen(false);
+  }
 
   useEffect(() => {
     const unlock = () => Tone.start();
@@ -74,7 +88,7 @@ export default function HomePage({
           onFormToggle={onFormToggle}
         />
       )}
-
+      {rateLimitPopupOpen && <RateLimitPopup onDismiss={() => setRateLimitPopupOpen(false)} />}
       <StyledHeading>the meadow__</StyledHeading>
       <StyledButtonContainerUp>
         <StyledButton onClick={onInfoBoxToggle}>
@@ -99,6 +113,9 @@ export default function HomePage({
         )}
         <StyledArticle>
           <h2> controls:</h2>
+          {rateLimitError && (
+            <p>weather data unavailable — daily API limit reached. try again tomorrow!</p>
+          )}
           <ul>
             <li>
               <p>use the mouse to rotate and pan around the globe</p>{" "}
@@ -181,7 +198,7 @@ export default function HomePage({
         <ThreeScene
           sheep={sheep}
           handleSheepPositionUpdate={handleSheepPositionUpdate}
-          handleSheepWeatherUpdate={handleSheepWeatherUpdate}
+          handleSheepWeatherUpdate={handleSheepWeatherSuccess}
           sheepMovementActivated={sheepMovementActivated}
           soundVersion={soundVersion}
           handleSetActive={handleSetActive}
@@ -189,6 +206,7 @@ export default function HomePage({
           clickDestination={clickDestination}
           onSetClickDestination={setClickDestination}
           isWireframe={isWireframe}
+          handleRateLimitError={handleRateLimitError}
         />
       </StyledCanvasContainer>
     </>

@@ -18,6 +18,7 @@ export default function Sheep({
   soundVersion,
   onSetActive,
   clickDestination,
+  onRateLimitError,
 }) {
   const model = useLoader(GLTFLoader, "/assets/models/DollySheep.glb");
   const scene = useMemo(() => clone(model.scene), [model.scene]);
@@ -138,6 +139,7 @@ export default function Sheep({
             );
             if (!response.ok) {
               console.error(`Weather fetch failed: ${response.status}`);
+              if (response.status === 429) onRateLimitError();
               return;
             }
             const weather = await response.json();
