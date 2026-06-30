@@ -223,13 +223,22 @@ export default function Sheep({
   });
 
   return (
-    <group ref={meshRef} onClick={() => onSetActive(sheep.id)}>
+    <group ref={meshRef}>
+      <mesh
+        onPointerDown={(e) => {
+          e.stopPropagation();
+          onSetActive(sheep.id);
+        }}
+      >
+        <sphereGeometry args={[0.3, 8, 8]} />
+        <meshBasicMaterial visible={false} />
+      </mesh>
       <Marker
         position={sheep.active ? [0, 0.7, 0] : [0, 0.6, 0]}
         color={sheep.color}
         active={sheep.active}
       />
-      <primitive object={scene} scale={0.1} />{" "}
+      <primitive object={scene} scale={0.1} />
     </group>
   );
 }

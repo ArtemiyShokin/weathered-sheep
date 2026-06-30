@@ -35,6 +35,9 @@ function Earth({ isWireframe, ...props }) {
     </mesh>
   );
 }
+const MOBILE_CAMERA_Z = 8;
+const DESKTOP_CAMERA_Z = 5;
+
 export default function ThreeScene({
   sheep,
   handleSheepPositionUpdate,
@@ -57,8 +60,14 @@ export default function ThreeScene({
     }
   }
 
+  const isMobile = window.innerWidth < 768;
+  const cameraZ = isMobile ? MOBILE_CAMERA_Z : DESKTOP_CAMERA_Z;
+
   return (
-    <StyledCanvas onPointerMissed={onSetAllSheepNotActive}>
+    <StyledCanvas
+      camera={{ position: [0, 0, cameraZ] }}
+      onPointerMissed={onSetAllSheepNotActive}
+    >
       <Suspense fallback={<Loader />}>
         <EffectComposer>
           <Bloom luminanceThreshold={1.2} intensity={0.5} />
