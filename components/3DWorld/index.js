@@ -46,6 +46,7 @@ export default function ThreeScene({
   clickDestination,
   onSetClickDestination,
   isWireframe,
+  handleRateLimitError,
 }) {
   function handleSheepClickPosition(event) {
     const point = event.point;
@@ -85,6 +86,7 @@ export default function ThreeScene({
               clickDestination={
                 clickDestination?.id === oneSheep.id ? clickDestination : null
               }
+              onRateLimitError={handleRateLimitError}
             />
           );
         })}
