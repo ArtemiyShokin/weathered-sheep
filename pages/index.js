@@ -155,7 +155,7 @@ export default function HomePage({
               </p>
             </li>{" "}
           </ul>
-          <p> weather data provided by open-meteo.com/ </p>
+          <p> //weather data provided by open-meteo.com// </p>
         </StyledArticle>
       </StyledHomePageContainer>
       {mapOpen && (
