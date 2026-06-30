@@ -21,6 +21,14 @@ export const StyledFormContainer = styled.div`
   button {
     align-self: flex-end;
   }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    width: calc(100vw - 32px);
+    left: 16px;
+    top: 20vh;
+    margin: 0;
+  }
 `;
 
 export const StyledForm = styled.form`

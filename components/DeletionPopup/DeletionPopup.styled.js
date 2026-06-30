@@ -24,4 +24,8 @@ export const StyledPopupContainer = styled.div`
     margin: 16px;
   }
   z-index: 1000;
+
+  @media (max-width: 768px) {
+    width: calc(100vw - 32px);
+  }
 `;

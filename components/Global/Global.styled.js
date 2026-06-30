@@ -10,6 +10,11 @@ export const StyledHeading = styled.h1`
   font-weight: 800;
   z-index: 20;
   position: fixed;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin: 8px 12px;
+  }
 `;
 
 export const StyledHomePageContainer = styled.div`
@@ -20,6 +25,15 @@ export const StyledHomePageContainer = styled.div`
   position: fixed;
   right: 24px;
   top: calc(16px + 3.1rem * 1.5);
+
+  @media (max-width: 768px) {
+    right: 0;
+    left: 0;
+    bottom: 76px;
+    top: auto;
+    height: auto;
+    z-index: 25;
+  }
 `;
 
 export const StyledButton = styled.button`
@@ -43,6 +57,14 @@ export const StyledButton = styled.button`
 
   .soundButton&:disabled {
     background-color: lightgreen;
+  }
+
+  @media (max-width: 768px) {
+    width: auto;
+    margin-left: 0;
+    font-size: 10px;
+    padding: 7px 4px;
+    white-space: nowrap;
   }
 `;
 
@@ -76,6 +98,24 @@ export const StyledWindowContainer = styled.div`
     top: 8px;
     right: 8px;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0;
+    max-height: 35vh;
+
+    ul {
+      grid-auto-flow: row;
+      grid-template-rows: unset;
+      grid-template-columns: 1fr;
+      width: 100%;
+      max-height: none;
+    }
+  }
 `;
 
 export const StyledListicle = styled.li`
@@ -89,6 +129,21 @@ export const StyledListicle = styled.li`
 
   padding: 8px;
   width: 250px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 2px 0;
+    padding: 4px 6px;
+
+    h2 {
+      font-size: 11px;
+    }
+
+    p {
+      font-size: 10px;
+      line-height: 1.3;
+    }
+  }
 `;
 
 export const StyledMenuBar = styled.div`
@@ -119,12 +174,32 @@ export const StyledMapPosition = styled.div`
   bottom: 56px;
   left: 0px;
   z-index: 20;
+
+  @media (max-width: 768px) {
+    bottom: 80px;
+    left: 0;
+    right: 0;
+  }
 `;
 
 export const StyledButtonContainerLow = styled.div`
   bottom: 16px;
   position: fixed;
   z-index: 20;
+
+  @media (max-width: 768px) {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    padding: 6px;
+
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 export const StyledButtonContainerUp = styled.div`
@@ -132,6 +207,14 @@ export const StyledButtonContainerUp = styled.div`
   right: 40px;
   position: fixed;
   z-index: 20;
+
+  @media (max-width: 768px) {
+    top: 48px;
+    right: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
 `;
 
 export const StyledCanvasContainer = styled.div`
@@ -140,6 +223,11 @@ export const StyledCanvasContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+    transform: translateY(-18%);
+  }
 `;
 
 export const StyledArticle = styled.article`
@@ -156,5 +244,9 @@ export const StyledArticle = styled.article`
   }
   ul {
     list-style: square;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
