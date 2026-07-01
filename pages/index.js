@@ -49,6 +49,7 @@ export default function HomePage({
   const [clickDestination, setClickDestination] = useState(null);
   const [rateLimitError, setRateLimitError] = useState(false);
   const [rateLimitPopupOpen, setRateLimitPopupOpen] = useState(false);
+  const [articleHidden, setArticleHidden] = useState(false);
 
   function handleRateLimitError() {
     setRateLimitError(true);
@@ -93,10 +94,10 @@ export default function HomePage({
       )}
       <StyledHeading>the meadow__</StyledHeading>
       <StyledButtonContainerUp>
-        <StyledButton onClick={onInfoBoxToggle}>
+        <StyledButton onClick={() => { onInfoBoxToggle(); setArticleHidden(true); }}>
           {infoBoxOpen ? "hide info" : "show info"}{" "}
         </StyledButton>
-        <StyledButton onClick={onMapToggle}>
+        <StyledButton onClick={() => { onMapToggle(); setArticleHidden(true); }}>
           {mapOpen ? "hide map" : "show map"}{" "}
         </StyledButton>
         <StyledButton onClick={onFormToggle} disabled={sheep.length >= 9}>
@@ -113,8 +114,11 @@ export default function HomePage({
             onInfoBoxToggle={onInfoBoxToggle}
           />
         )}
-        <StyledArticle>
+        <StyledArticle $hidden={articleHidden}>
           <h2> controls:</h2>
+          <h3 className="mobileInfo">
+            note: badly optimized for mobile and more fun on dekstop!
+          </h3>
           {rateLimitError && (
             <p>
               weather data unavailable — daily API limit reached. try again
