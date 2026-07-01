@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef } from "react";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import {
   TrackballControls,
@@ -51,13 +51,28 @@ export default function ThreeScene({
   isWireframe,
   handleRateLimitError,
 }) {
-  function handleSheepClickPosition(event) {
-    const point = event.point;
+  const pointerDownPos = useRef(null);
+
+  function handleSheepClickPosition(point) {
     const [lat, lng] = vector3ToLatLng(point, earthRadius);
     const activeSheep = sheep.find((oneSheep) => oneSheep.active);
     if (activeSheep) {
       onSetClickDestination({ id: activeSheep.id, lat, lng });
     }
+  }
+
+  function handleEarthPointerDown(event) {
+    pointerDownPos.current = { x: event.clientX, y: event.clientY, point: event.point };
+  }
+
+  function handleEarthPointerUp(event) {
+    if (!pointerDownPos.current) return;
+    const dx = event.clientX - pointerDownPos.current.x;
+    const dy = event.clientY - pointerDownPos.current.y;
+    if (Math.hypot(dx, dy) < 10) {
+      handleSheepClickPosition(pointerDownPos.current.point);
+    }
+    pointerDownPos.current = null;
   }
 
   const isMobile = window.innerWidth < 768;
@@ -81,7 +96,11 @@ export default function ThreeScene({
           intensity={Math.PI / 2}
         />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Earth onClick={handleSheepClickPosition} isWireframe={isWireframe} />
+        <Earth
+          onPointerDown={handleEarthPointerDown}
+          onPointerUp={handleEarthPointerUp}
+          isWireframe={isWireframe}
+        />
         {sheep.map((oneSheep) => {
           return (
             <Sheep

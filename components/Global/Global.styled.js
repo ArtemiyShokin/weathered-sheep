@@ -246,7 +246,24 @@ export const StyledArticle = styled.article`
     list-style: square;
   }
 
-  @media (max-width: 768px) {
+  .mobileInfo {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    bottom: 60px;
+    width: 90%;
+
+    p {
+      font-size: 10px;
+    }
+
+    .mobileInfo {
+      display: contents;
+      font-size: 10px;
+    }
+
+    ${(props) => props.$hidden && "display: none;"}
+  }
+  z-index: -1;
 `;
