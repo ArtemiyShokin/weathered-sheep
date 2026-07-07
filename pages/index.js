@@ -92,7 +92,7 @@ export default function HomePage({
       {rateLimitPopupOpen && (
         <RateLimitPopup onDismiss={() => setRateLimitPopupOpen(false)} />
       )}
-      <StyledHeading>the meadow__</StyledHeading>
+      <StyledHeading>weathered sheep__</StyledHeading>
       <StyledButtonContainerUp>
         <StyledButton onClick={() => { onInfoBoxToggle(); setArticleHidden(true); }}>
           {infoBoxOpen ? "hide info" : "show info"}{" "}
