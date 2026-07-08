@@ -17,8 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
   color: var(--huemint2);
   background-image: url(/assets/image-assets/noisy.png);
-  background-blend-mode: soft-light;
-
+  background-blend-mode: hard-light;
 
   /* COLORS */
 
