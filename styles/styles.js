@@ -14,11 +14,16 @@ const GlobalStyle = createGlobalStyle`
 
 :root {
   background-color: var(--huemint1);
+
   color: var(--huemint2);
+  background-image: url(/assets/image-assets/noisy.png);
+  background-blend-mode: soft-light;
+
 
   /* COLORS */
 
-  --huemint1: #1e2238;
+  /* --huemint1: #1e2238; */
+    --huemint1: #505470;
   --huemint2: #f9ca63;
   --huemint3: #e9e8ce;
   --huemint4: #e64f1b;
