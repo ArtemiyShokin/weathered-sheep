@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
   /* COLORS */
 
   /* --huemint1: #1e2238; */
-    --huemint1: #505470;
+    --huemint1: #6f5070;
   --huemint2: #f9ca63;
   --huemint3: #e9e8ce;
   --huemint4: #e64f1b;
